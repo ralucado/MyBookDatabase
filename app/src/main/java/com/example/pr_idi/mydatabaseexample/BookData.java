@@ -57,6 +57,7 @@ public class BookData {
         long insertId = database.insert(MySQLiteHelper.TABLE_BOOKS, null,
                 values);
 
+
         // Main activity calls this procedure to create a new book
         // and uses the result to update the listview.
         // Therefore, we need to get the data from the database
@@ -71,7 +72,7 @@ public class BookData {
 
         // Do not forget to close the cursor
         cursor.close();
-
+        Log.d("Created Book","Created "+newBook.getId()+" "+newBook.getTitle()+" "+newBook.getAuthor()+" "+newBook.getPublisher()+" "+newBook.getYear()+" "+newBook.getCategory()+" "+newBook.getPersonal_evaluation());
         // Return the book
         return newBook;
     }
@@ -94,7 +95,20 @@ public class BookData {
         // Actual insertion of the data using the values variable
         long insertId = database.insert(MySQLiteHelper.TABLE_BOOKS, null,
                 values);
+        // Main activity calls this procedure to create a new book
+        // and uses the result to update the listview.
+        // Therefore, we need to get the data from the database
+        // (you can use this as a query example)
+        // to feed the view.
 
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
+                allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
+                null, null, null);
+        cursor.moveToFirst();
+        Book newBook = cursorToBook(cursor);
+
+        // Do not forget to close the cursor
+        cursor.close();
         // Return the book
         return b;
     }
@@ -129,6 +143,11 @@ public class BookData {
         book.setId(cursor.getLong(0));
         book.setTitle(cursor.getString(1));
         book.setAuthor(cursor.getString(2));
+        book.setPublisher(cursor.getString(3));
+        book.setYear(cursor.getInt(4));
+        book.setCategory(cursor.getString(5));
+        book.setPersonal_evaluation(cursor.getFloat(6));
+
         return book;
     }
 }

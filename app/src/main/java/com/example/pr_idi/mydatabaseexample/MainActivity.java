@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ListView list = (ListView)  findViewById(R.id.list);
         ArrayAdapter<Book> adapter = (ArrayAdapter<Book>) list.getAdapter();
         switch (view.getId()) {
-            case R.id.add:
+            case R.id.plusButton:
                 String[] newBook = new String[] { "Miguel Strogoff", "Jules Verne", "Ulysses", "James Joyce", "Don Quijote", "Miguel de Cervantes", "Metamorphosis", "Kafka", "send", "nudes" };
                 int nextInt = new Random().nextInt(5);
                 // save the new book to the database
@@ -79,12 +79,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 // After I get the book data, I add it to the adapter
                 adapter.add(book);
                 break;
-            case R.id.delete:
-                if (list.getAdapter ().getCount() > 0) {
-                    book = (Book) list.getAdapter().getItem(0);
-                    bookData.deleteBook(book);
-                    adapter.remove(book);
-                }
+            default:
                 break;
         }
         adapter.notifyDataSetChanged();

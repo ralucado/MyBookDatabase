@@ -70,8 +70,7 @@ public class myAdapter extends ArrayAdapter<Book>{
                             .setCancelable(false)
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    // if this button is clicked, close
-                                    // current activity
+
                                     myParent.deleteBook(book);
                                     Toast.makeText(myParent, "Changed rating", Toast.LENGTH_SHORT).show();
                                     book.setPersonal_evaluation(value);
@@ -81,8 +80,7 @@ public class myAdapter extends ArrayAdapter<Book>{
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    // if this button is clicked, just close
-                                    // the dialog box and do nothing
+
                                     bar.setRating(book.getPersonal_evaluation());
                                     dialog.cancel();
                                 }
