@@ -1,5 +1,7 @@
 package com.example.pr_idi.mydatabaseexample;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -45,6 +47,8 @@ public class myAdapter extends ArrayAdapter<Book>{
     @Override
     public View getView(final int position, View convertView, ViewGroup parent){
         View vi = convertView;
+        final Book book = getItem(position);
+
         if (vi == null) vi = inflater.inflate(R.layout.row, null);
         TextView title = (TextView) vi.findViewById(R.id.titleView);
         Book b = myObjects.get(position);
@@ -53,7 +57,45 @@ public class myAdapter extends ArrayAdapter<Book>{
         author.setText(b.getAuthor());
         TextView category = (TextView) vi.findViewById(R.id.categoryView);
         category.setText(b.getCategory());
-        RatingBar bar = (RatingBar) vi.findViewById(R.id.ratingBar);
+        final RatingBar bar = (RatingBar) vi.findViewById(R.id.ratingBar);
+        bar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
+            public void onRatingChanged(RatingBar r, final float value, boolean fromUser) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        myContext);
+                // set title
+                if(fromUser) {
+                    alertDialogBuilder.setTitle("Changed Rating");
+                    alertDialogBuilder
+                            .setMessage("Do you want to change the book rating?")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // if this button is clicked, close
+                                    // current activity
+                                    myParent.deleteBook(book);
+                                    Toast.makeText(myParent, "Changed rating", Toast.LENGTH_SHORT).show();
+                                    book.setPersonal_evaluation(value);
+                                    myParent.createBook(book);
+
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // if this button is clicked, just close
+                                    // the dialog box and do nothing
+                                    bar.setRating(book.getPersonal_evaluation());
+                                    dialog.cancel();
+                                }
+                            });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                    // show it
+                    alertDialog.show();
+                }
+
+            }});
         bar.setRating(b.getPersonal_evaluation());
         ImageView imgView = (ImageView) vi.findViewById(R.id.imageview);
         try {
@@ -73,7 +115,6 @@ public class myAdapter extends ArrayAdapter<Book>{
                             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                                 @Override
                                 public boolean onMenuItemClick(MenuItem item) {
-
                                     switch (item.getItemId()) {
                                         case R.id.edit:
 
@@ -82,7 +123,6 @@ public class myAdapter extends ArrayAdapter<Book>{
 
                                             break;
                                         case R.id.delete:
-                                            Book book = getItem(position);
                                             myParent.deleteBook(book);
                                             remove(book);
 

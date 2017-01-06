@@ -24,7 +24,7 @@ public class BookData {
 
     // Here we only select Title and Author, must select the appropriate columns
     private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
-            MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_AUTHOR};
+            MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_AUTHOR, MySQLiteHelper.COLUMN_PUBLISHER,MySQLiteHelper.COLUMN_YEAR, MySQLiteHelper.COLUMN_CATEGORY, MySQLiteHelper.COLUMN_PERSONAL_EVALUATION};
 
     public BookData(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -75,6 +75,30 @@ public class BookData {
         // Return the book
         return newBook;
     }
+
+    public Book createBook(Book b) {
+        ContentValues values = new ContentValues();
+        String title = b.getTitle();
+        String author = b.getAuthor();
+        Log.d("Creating", "Creating " + title + " " + author);
+
+        // Add data: Note that this method only provides title and author
+        // Must modify the method to add the full data
+        values.put(MySQLiteHelper.COLUMN_TITLE, title);
+        values.put(MySQLiteHelper.COLUMN_AUTHOR, author);
+        values.put(MySQLiteHelper.COLUMN_PUBLISHER, b.getPublisher());
+        values.put(MySQLiteHelper.COLUMN_YEAR, b.getYear());
+        values.put(MySQLiteHelper.COLUMN_CATEGORY, b.getCategory());
+        values.put(MySQLiteHelper.COLUMN_PERSONAL_EVALUATION, Float.toString(b.getPersonal_evaluation()));
+
+        // Actual insertion of the data using the values variable
+        long insertId = database.insert(MySQLiteHelper.TABLE_BOOKS, null,
+                values);
+
+        // Return the book
+        return b;
+    }
+
 
     public void deleteBook(Book book) {
         long id = book.getId();
