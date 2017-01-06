@@ -5,14 +5,21 @@ import java.util.List;
 import java.util.Random;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     private BookData bookData;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
@@ -34,11 +41,12 @@ public class MainActivity extends ListActivity {
 
         List<Book> values = bookData.getAllBooks();
 
+        ListView list = (ListView)  findViewById(R.id.list);
+        myAdapter adapter = new myAdapter (this, R.layout.row, values, this);
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(this);
         // use the SimpleCursorAdapter to show the
         // elements in a ListView
-        ArrayAdapter<Book> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, values);
-        setListAdapter(adapter);
         mDrawerList = (ListView)findViewById(R.id.navList);
         addDrawerItems();
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -47,6 +55,7 @@ public class MainActivity extends ListActivity {
                 Toast.makeText(MainActivity.this, "send nudes", Toast.LENGTH_SHORT).show();
             }
         });
+
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setHomeButtonEnabled(true);
     }
@@ -58,27 +67,33 @@ public class MainActivity extends ListActivity {
     // of the buttons in main.xml
     public void onClick(View view) {
         @SuppressWarnings("unchecked")
-        ArrayAdapter<Book> adapter = (ArrayAdapter<Book>) getListAdapter();
+
         Book book;
+        ListView list = (ListView)  findViewById(R.id.list);
+        ArrayAdapter<Book> adapter = (ArrayAdapter<Book>) list.getAdapter();
         switch (view.getId()) {
             case R.id.add:
                 String[] newBook = new String[] { "Miguel Strogoff", "Jules Verne", "Ulysses", "James Joyce", "Don Quijote", "Miguel de Cervantes", "Metamorphosis", "Kafka", "send", "nudes" };
                 int nextInt = new Random().nextInt(5);
                 // save the new book to the database
                 book = bookData.createBook(newBook[nextInt*2], newBook[nextInt*2 + 1]);
-
+                book.setCategory("Pan");
                 // After I get the book data, I add it to the adapter
                 adapter.add(book);
                 break;
             case R.id.delete:
-                if (getListAdapter().getCount() > 0) {
-                    book = (Book) getListAdapter().getItem(0);
+                if (list.getAdapter ().getCount() > 0) {
+                    book = (Book) list.getAdapter().getItem(0);
                     bookData.deleteBook(book);
                     adapter.remove(book);
                 }
                 break;
         }
         adapter.notifyDataSetChanged();
+    }
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int integer, long l){
+        Toast.makeText(MainActivity.this, "send nudes", Toast.LENGTH_SHORT).show();
     }
 
     // Life cycle methods. Check whether it is necessary to reimplement them
@@ -97,4 +112,7 @@ public class MainActivity extends ListActivity {
         super.onPause();
     }
 
+    public void deleteBook(Book b){
+        bookData.deleteBook(b);
+    }
 }

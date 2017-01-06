@@ -15,7 +15,7 @@ public class Book {
     private int year;
     private String publisher;
     private String category;
-    private String personal_evaluation;
+    private float personal_evaluation;
 
     public long getId() {
         return id;
@@ -65,11 +65,11 @@ public class Book {
         this.category = category;
     }
 
-    public String getPersonal_evaluation() {
+    public float getPersonal_evaluation() {
         return personal_evaluation;
     }
 
-    public void setPersonal_evaluation(String personal_evaluation) {
+    public void setPersonal_evaluation(float personal_evaluation) {
         this.personal_evaluation = personal_evaluation;
     }
 
