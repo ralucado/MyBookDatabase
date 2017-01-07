@@ -2,6 +2,7 @@ package com.example.pr_idi.mydatabaseexample;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.internal.view.ContextThemeWrapper;
 import android.support.v7.widget.PopupMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class myAdapter extends ArrayAdapter<Book>{
     private static LayoutInflater inflater = null;
-
+    final myAdapter THIS = this;
     List<Book> myObjects;
     Context myContext;
     MainActivity myParent = null;
@@ -29,6 +30,10 @@ public class myAdapter extends ArrayAdapter<Book>{
         myContext = context;
         myParent = parent;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public void setObjects(List<Book> objects) {
+        myObjects = objects;
     }
     @Override
     public int getCount(){
@@ -41,7 +46,7 @@ public class myAdapter extends ArrayAdapter<Book>{
     }
     @Override
     public long getItemId(int position){
-        return position;
+        return myObjects.get(position).getId();
     }
 
     @Override
@@ -58,10 +63,11 @@ public class myAdapter extends ArrayAdapter<Book>{
         TextView category = (TextView) vi.findViewById(R.id.categoryView);
         category.setText(b.getCategory());
         final RatingBar bar = (RatingBar) vi.findViewById(R.id.ratingBar);
+
         bar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
             public void onRatingChanged(RatingBar r, final float value, boolean fromUser) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        myContext);
+                        new ContextThemeWrapper(myContext, R.style.AlertDialog_AppCompat));
                 // set title
                 if(fromUser) {
                     alertDialogBuilder.setTitle("Changed Rating");
@@ -123,7 +129,6 @@ public class myAdapter extends ArrayAdapter<Book>{
                                         case R.id.delete:
                                             myParent.deleteBook(book);
                                             remove(book);
-
                                             break;
 
                                         default:

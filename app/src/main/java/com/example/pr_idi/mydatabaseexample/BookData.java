@@ -4,6 +4,7 @@ package com.example.pr_idi.mydatabaseexample;
  * BookData
  * Created by pr_idi on 10/11/16.
  */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,8 @@ public class BookData {
     private MySQLiteHelper dbHelper;
 
     // Here we only select Title and Author, must select the appropriate columns
-    private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
-            MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_AUTHOR, MySQLiteHelper.COLUMN_PUBLISHER,MySQLiteHelper.COLUMN_YEAR, MySQLiteHelper.COLUMN_CATEGORY, MySQLiteHelper.COLUMN_PERSONAL_EVALUATION};
+    private String[] allColumns = {MySQLiteHelper.COLUMN_ID,
+            MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_AUTHOR, MySQLiteHelper.COLUMN_PUBLISHER, MySQLiteHelper.COLUMN_YEAR, MySQLiteHelper.COLUMN_CATEGORY, MySQLiteHelper.COLUMN_PERSONAL_EVALUATION};
 
     public BookData(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -72,7 +73,7 @@ public class BookData {
 
         // Do not forget to close the cursor
         cursor.close();
-        Log.d("Created Book","Created "+newBook.getId()+" "+newBook.getTitle()+" "+newBook.getAuthor()+" "+newBook.getPublisher()+" "+newBook.getYear()+" "+newBook.getCategory()+" "+newBook.getPersonal_evaluation());
+        Log.d("Created Book", "Created " + newBook.getId() + " " + newBook.getTitle() + " " + newBook.getAuthor() + " " + newBook.getPublisher() + " " + newBook.getYear() + " " + newBook.getCategory() + " " + newBook.getPersonal_evaluation());
         // Return the book
         return newBook;
     }
@@ -113,12 +114,28 @@ public class BookData {
         return b;
     }
 
-
     public void deleteBook(Book book) {
         long id = book.getId();
         System.out.println("Book deleted with id: " + id);
         database.delete(MySQLiteHelper.TABLE_BOOKS, MySQLiteHelper.COLUMN_ID
                 + " = " + id, null);
+    }
+
+
+    public List<Book> getBooksByAuthor(String author) {
+
+        List<Book> books = new ArrayList<>();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + MySQLiteHelper.TABLE_BOOKS + " WHERE author='" + author + "' ORDER BY title",
+                null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Book book = cursorToBook(cursor);
+            books.add(book);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return books;
     }
 
     public List<Book> getAllBooks() {

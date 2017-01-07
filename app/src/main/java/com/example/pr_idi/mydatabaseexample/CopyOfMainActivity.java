@@ -9,7 +9,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -23,22 +22,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import static java.lang.System.out;
-
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class CopyOfMainActivity extends MainActivity implements AdapterView.OnItemClickListener {
     protected BookData bookData;
     protected Toolbar toolbar;
     protected FloatingActionButton fab;
-    protected ListView list;
-    protected myAdapter adapter;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
-    private SwipeRefreshLayout swipeLayout;
 
     private void addDrawerItems() {
-        String[] optionArray = {"Categories", "Help", "About"};
+        String[] optionArray = {"This is Placeholder"};
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, optionArray);
         mDrawerList.setAdapter(mAdapter);
     }
@@ -53,10 +47,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         bookData = new BookData(this);
         bookData.open();
-        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        swipeLayout.setOnRefreshListener(this);
-        list = (ListView) findViewById(R.id.list);
-        fillList();
+
+        List<Book> values = bookData.getAllBooks();
+        ListView list = (ListView) findViewById(R.id.list);
+        myAdapter adapter = new myAdapter(super.getBaseContext(), R.layout.row, values, this);
+        list.setAdapter(adapter);
         list.setOnItemClickListener(this);
         fab = (FloatingActionButton) findViewById(R.id.plusButton);
         list.setOnScrollListener(new ListView.OnScrollListener() {
@@ -84,21 +79,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setUpDrawer();
     }
 
-    private void fillList() {
-        swipeLayout.setRefreshing(true);
-        List<Book> values = bookData.getAllBooks();
-        adapter = new myAdapter(this, R.layout.row, values, this);
-        list.setAdapter(adapter);
-        swipeLayout.setRefreshing(false);
-    }
-
     private void setUpDrawer() {
         mDrawerList = (ListView) findViewById(R.id.navList);
         addDrawerItems();
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "send nudes", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CopyOfMainActivity.this, "send nudes", Toast.LENGTH_SHORT).show();
             }
         });
         //mDrawerList.setBackgroundColor(getResources().getColor(R.color.background_floating_material_dark));
@@ -135,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         @SuppressWarnings("unchecked")
 
         Book book;
+        ListView list = (ListView) findViewById(R.id.list);
+        ArrayAdapter<Book> adapter = (ArrayAdapter<Book>) list.getAdapter();
         switch (view.getId()) {
             case R.id.plusButton:
                 String[] newBook = new String[]{"Miguel Strogoff", "Jules Verne", "Ulysses", "James Joyce", "Don Quijote", "Miguel de Cervantes", "Metamorphosis", "Kafka", "send", "nudes"};
@@ -153,8 +142,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int integer, long l) {
-
-        Toast.makeText(MainActivity.this, "send nudes", Toast.LENGTH_SHORT).show();
+        Toast.makeText(CopyOfMainActivity.this, "send nudes", Toast.LENGTH_SHORT).show();
     }
 
     // Life cycle methods. Check whether it is necessary to reimplement them
@@ -163,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onResume() {
         bookData.open();
         super.onResume();
-        fillList();
     }
 
     // Life cycle methods. Check whether it is necessary to reimplement them
@@ -194,10 +181,5 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
         return true;
-    }
-
-    @Override
-    public void onRefresh() {
-        fillList();
     }
 }
