@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 Toast.makeText(MainActivity.this, "send nudes", Toast.LENGTH_SHORT).show();
             }
         });
+        mDrawerList.setBackgroundColor(getResources().getColor(R.color.background_floating_material_dark));
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle=new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close){
             @Override
