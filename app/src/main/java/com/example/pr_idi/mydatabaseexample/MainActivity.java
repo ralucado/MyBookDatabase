@@ -4,27 +4,22 @@ package com.example.pr_idi.mydatabaseexample;
 import java.util.List;
 import java.util.Random;
 
-import android.app.ListActivity;
+import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.RatingBar;
-import android.widget.SlidingDrawer;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -91,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 Toast.makeText(MainActivity.this, "send nudes", Toast.LENGTH_SHORT).show();
             }
         });
-        mDrawerList.setBackgroundColor(getResources().getColor(R.color.background_floating_material_dark));
+        //mDrawerList.setBackgroundColor(getResources().getColor(R.color.background_floating_material_dark));
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle=new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close){
             @Override
@@ -170,5 +165,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void createBook(Book b) {
         bookData.createBook(b);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+        return true;
     }
 }
