@@ -7,6 +7,7 @@ import java.util.Random;
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private Toolbar toolbar;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
+    private FloatingActionButton fab;
 
     private void addDrawerItems() {
         String[] optionArray = {"Categories", "Author", "Title", "Help", "About"};
@@ -51,11 +54,29 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         bookData.open();
 
         List<Book> values = bookData.getAllBooks();
-
         ListView list = (ListView) findViewById(R.id.list);
         myAdapter adapter = new myAdapter(this, R.layout.row, values, this);
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
+        fab = (FloatingActionButton) findViewById(R.id.plusButton);
+        list.setOnScrollListener(new ListView.OnScrollListener(){
+            int lastFirstItem = 0;
+            boolean down = false;
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (lastFirstItem > firstVisibleItem) down = true;
+                else if (lastFirstItem < firstVisibleItem)down = false;
+                lastFirstItem = firstVisibleItem;
+                final int lastItem = firstVisibleItem + visibleItemCount;
+                if(totalItemCount != 0 && firstVisibleItem > 0 && !down && fab.isShown()) fab.hide();
+                else fab.show();
+            }
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if(scrollState == SCROLL_STATE_IDLE && down) fab.show();
+            }
+        });
         // use the SimpleCursorAdapter to show the
         // elements in a ListView
         setUpDrawer();
@@ -92,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
     }
+
 
     // Basic method to add pseudo-random list of books so that
     // you have an example of insertion and deletion

@@ -1,117 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:orientation="horizontal" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
 
-    <TableLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/titleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:text="A very very long book title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/primary_text_default_material_dark"
+        android:textSize="16sp"
+        android:textStyle="normal|bold" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="5dp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <Space
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/titleView"
-                    android:typeface="monospace"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textStyle="normal|bold" />
-
-                <Space
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/categoryView"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textSize="18sp"
-                    android:fontFamily="monospace"
-                    android:typeface="monospace" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="10dp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <Space
-                    android:layout_width="5dp"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:text="TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/authorView"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:fontFamily="monospace"
-                    android:typeface="monospace"
-                    android:textSize="18sp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="20dp" >
-
-                <Space
-                    android:layout_width="5dp"
-                    android:layout_height="wrap_content" />
-
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="5"
-                    android:stepSize="1.0"
-                    android:rating="2.0"
-                    style="@style/Widget.AppCompat.RatingBar"
-                    android:secondaryProgressTint="#ff00ffff"
-                    android:progressBackgroundTint="#0f0f0f0f"
-                    android:progressTint="#ffff00ff"
-                    />
+    <TextView
+        android:id="@+id/authorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleView"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif"
+        android:text="A Long Author Name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="13sp"
+        android:typeface="normal" />
 
 
-            </TableRow>
 
-        </TableLayout>
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/authorView"
+        android:layout_marginTop="4dp"
+        android:numStars="5"
+        android:rating="2.5"
+        android:stepSize="1"
+        android:isIndicator="false" />
 
-        <ImageView
-            android:id="@+id/imageview"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_more_vert_black_24dp"
-            />
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_more_vert_white_24dp"
 
-</LinearLayout>
+        />
+
+
+    <TextView
+        android:id="@+id/categoryView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/imageview"
+        android:layout_alignTop="@id/titleView"
+        android:layout_marginRight="40dp"
+        android:fontFamily="sans-serif"
+        android:text="A book category"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="@color/abc_secondary_text_material_dark"
+        android:textSize="13sp"
+        android:typeface="normal" />
+
+</RelativeLayout>
