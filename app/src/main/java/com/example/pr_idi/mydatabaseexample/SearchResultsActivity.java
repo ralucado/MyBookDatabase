@@ -48,7 +48,7 @@ public class SearchResultsActivity extends MainActivity {
         list.setEmptyView(emptyText);
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeLayout.setOnRefreshListener(this);
-        swipeLayout.setColorSchemeColors(R.color.colorPrimary,R.color.colorAccent);
+        swipeLayout.setColorScheme(R.color.colorAccent);
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);

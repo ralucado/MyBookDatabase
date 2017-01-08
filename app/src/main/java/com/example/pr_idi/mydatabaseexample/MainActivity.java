@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         bookData.open();
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeLayout.setOnRefreshListener(this);
-        swipeLayout.setColorSchemeColors(R.color.colorPrimary,R.color.colorAccent);
+        swipeLayout.setColorScheme(R.color.colorAccent);
         list = (ListView) findViewById(R.id.list);
         fillList();
         list.setOnItemClickListener(this);
