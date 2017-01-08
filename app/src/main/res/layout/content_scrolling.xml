@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
+    android:layout_marginTop="56dp"
     android:layout_height="wrap_content">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,7 +28,7 @@
             android:textAlignment="center"
             android:fontFamily="sans-serif"
             android:typeface="normal"
-            android:textColor="@color/secondary_text_default_material_dark"/>
+            android:textColor="@color/secondary_text_default_material_dark" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/plusButton"
@@ -40,7 +42,9 @@
             android:clickable="true"
             android:onClick="onClick"
             android:src="@drawable/ic_add_white_24dp"
-            app:elevation="12dp" />
+            app:elevation="6dp"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true" />
 
     </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

@@ -1,6 +1,7 @@
 package com.example.pr_idi.mydatabaseexample;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
@@ -8,6 +9,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -72,7 +75,9 @@ public class SearchResultsActivity extends MainActivity {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
             }
         });
-
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         handleIntent(getIntent());
     }

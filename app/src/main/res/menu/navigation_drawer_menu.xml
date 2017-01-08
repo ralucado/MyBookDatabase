@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:checked="true"
+            android:id="@+id/item_navigation_drawer_titles"
+            android:icon="@drawable/ic_import_contacts_black_24dp"
+            android:title="Titles" />
+        <item
+            android:id="@+id/item_navigation_drawer_authors"
+            android:icon="@drawable/ic_face_black_24dp"
+            android:title="Authors" />
+        <item
+            android:id="@+id/item_navigation_drawer_categories"
+            android:icon="@drawable/ic_folder_black_24dp"
+            android:title="Categories" />
+
+    </group>
+
+    <item android:title="More">
+        <menu>
+            <item
+                android:id="@+id/item_navigation_drawer_about"
+                android:icon="@drawable/ic_info_black_24dp"
+                android:title="About" />
+            <item
+                android:id="@+id/item_navigation_drawer_help"
+                android:icon="@drawable/ic_help_black_24dp"
+                android:title="Help" />
+        </menu>
+    </item>
+
+</menu>
