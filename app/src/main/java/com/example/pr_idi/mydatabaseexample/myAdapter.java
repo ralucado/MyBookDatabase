@@ -1,4 +1,5 @@
 package com.example.pr_idi.mydatabaseexample;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -18,14 +19,15 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class myAdapter extends ArrayAdapter<Book>{
+public class myAdapter extends ArrayAdapter<Book> {
     private static LayoutInflater inflater = null;
     final myAdapter THIS = this;
     List<Book> myObjects;
     Context myContext;
     MainActivity myParent = null;
-    public myAdapter(Context context, int resource, List<Book> objects,final MainActivity parent){
-        super(context,resource,objects);
+
+    public myAdapter(Context context, int resource, List<Book> objects, final MainActivity parent) {
+        super(context, resource, objects);
         myObjects = objects;
         myContext = context;
         myParent = parent;
@@ -35,22 +37,24 @@ public class myAdapter extends ArrayAdapter<Book>{
     public void setObjects(List<Book> objects) {
         myObjects = objects;
     }
+
     @Override
-    public int getCount(){
+    public int getCount() {
         return myObjects.size();
     }
 
     @Override
-    public Book getItem(int position){
+    public Book getItem(int position) {
         return myObjects.get(position);
     }
+
     @Override
-    public long getItemId(int position){
+    public long getItemId(int position) {
         return myObjects.get(position).getId();
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         final Book book = getItem(position);
 
@@ -64,25 +68,28 @@ public class myAdapter extends ArrayAdapter<Book>{
         category.setText(b.getCategory());
         final RatingBar bar = (RatingBar) vi.findViewById(R.id.ratingBar);
 
-        bar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
+        bar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar r, final float value, boolean fromUser) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         new ContextThemeWrapper(myContext, R.style.AlertDialog_AppCompat));
                 // set title
-                if(fromUser) {
+                if (fromUser) {
                     alertDialogBuilder.setTitle("Changed Rating");
                     alertDialogBuilder
                             .setMessage("Do you want to change the book rating?")
                             .setCancelable(false)
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    remove(book);
-                                    myParent.deleteBook(book);
-                                    book.setPersonal_evaluation(value);
-                                    myParent.createBook(book);
-                                    add(book);
-                                    Toast.makeText(myParent, "Changed rating", Toast.LENGTH_SHORT).show();
-
+                                    if (myParent.deleteBook(book)) {
+                                        remove(book);
+                                        book.setPersonal_evaluation(value);
+                                        myParent.createBook(book);
+                                        add(book);
+                                        Toast.makeText(myParent, "Changed rating", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(myContext, "Book does not exist, please swipe up to refresh.", Toast.LENGTH_LONG).show();
+                                        bar.setRating(book.getPersonal_evaluation());
+                                    }
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -100,7 +107,8 @@ public class myAdapter extends ArrayAdapter<Book>{
                     alertDialog.show();
                 }
 
-            }});
+            }
+        });
         bar.setRating(b.getPersonal_evaluation());
         ImageView imgView = (ImageView) vi.findViewById(R.id.imageview);
         try {
@@ -128,8 +136,9 @@ public class myAdapter extends ArrayAdapter<Book>{
 
                                             break;
                                         case R.id.delete:
-                                            myParent.deleteBook(book);
-                                            remove(book);
+                                            if (myParent.deleteBook(book)) remove(book);
+                                            else
+                                                Toast.makeText(myContext, "Book does not exist, please swipe up to refresh.", Toast.LENGTH_LONG).show();
                                             break;
 
                                         default:
@@ -154,6 +163,7 @@ public class myAdapter extends ArrayAdapter<Book>{
 
             e.printStackTrace();
         }
+
         return vi;
     }
 }

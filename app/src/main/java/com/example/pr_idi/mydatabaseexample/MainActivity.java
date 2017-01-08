@@ -25,17 +25,17 @@ import android.widget.Toast;
 
 import static java.lang.System.out;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener{
     protected BookData bookData;
     protected Toolbar toolbar;
     protected FloatingActionButton fab;
     protected ListView list;
     protected myAdapter adapter;
+    protected SwipeRefreshLayout swipeLayout;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
-    //private SwipeRefreshLayout swipeLayout;
 
     private void addDrawerItems() {
         String[] optionArray = {"Categories", "Help", "About"};
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -53,8 +54,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         bookData = new BookData(this);
         bookData.open();
-       // swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-       // swipeLayout.setOnRefreshListener(this);
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        swipeLayout.setOnRefreshListener(this);
+        swipeLayout.setColorSchemeColors(R.color.colorPrimary,R.color.colorAccent);
         list = (ListView) findViewById(R.id.list);
         fillList();
         list.setOnItemClickListener(this);
@@ -65,6 +67,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                boolean enable = false;
+                if(list != null && list.getChildCount() > 0) {
+                    // check if the first item of the list is visible
+                    boolean firstItemVisible = list.getFirstVisiblePosition() == 0;
+                    // check if the top of the first item is visible
+                    boolean topOfFirstItemVisible = list.getChildAt(0).getTop() == 0;
+                    enable = firstItemVisible && topOfFirstItemVisible;
+                }
+                swipeLayout.setEnabled(enable);
                 if (lastFirstItem > firstVisibleItem) down = true;
                 else if (lastFirstItem < firstVisibleItem) down = false;
                 lastFirstItem = firstVisibleItem;
@@ -85,11 +96,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void fillList() {
-      //  swipeLayout.setRefreshing(true);
+      swipeLayout.setRefreshing(true);
         List<Book> values = bookData.getAllBooks();
         adapter = new myAdapter(this, R.layout.row, values, this);
         list.setAdapter(adapter);
-        //swipeLayout.setRefreshing(false);
+        swipeLayout.setRefreshing(false);
     }
 
     private void setUpDrawer() {
@@ -123,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 mDrawerToggle.syncState();
             }
         });
+        swipeLayout.setRefreshing(false);
     }
 
 
@@ -163,7 +175,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onResume() {
         bookData.open();
         super.onResume();
-        //fillList();
+        adapter.notifyDataSetInvalidated();
+        //fillList(); //DANGER THIS FUCK ALL UP NEVER UNCOMMENT OR YOU WILL WANT TO DIE
     }
 
     // Life cycle methods. Check whether it is necessary to reimplement them
@@ -174,8 +187,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onPause();
     }
 
-    public void deleteBook(Book b) {
-        bookData.deleteBook(b);
+    public boolean deleteBook(Book b) {
+        return bookData.deleteBook(b);
     }
 
     public void createBook(Book b) {
@@ -195,9 +208,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
-/*
+
     @Override
     public void onRefresh() {
+        swipeLayout.setRefreshing(true);
         fillList();
-    }*/
+        swipeLayout.setRefreshing(false);
+    }
 }

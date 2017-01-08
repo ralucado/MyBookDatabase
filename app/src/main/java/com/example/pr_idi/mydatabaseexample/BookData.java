@@ -114,11 +114,12 @@ public class BookData {
         return b;
     }
 
-    public void deleteBook(Book book) {
+    public boolean deleteBook(Book book) {
         long id = book.getId();
         System.out.println("Book deleted with id: " + id);
-        database.delete(MySQLiteHelper.TABLE_BOOKS, MySQLiteHelper.COLUMN_ID
-                + " = " + id, null);
+        if(database.delete(MySQLiteHelper.TABLE_BOOKS, MySQLiteHelper.COLUMN_ID
+                + " = " + id, null) > 0) return true;
+        else return false;
     }
 
 

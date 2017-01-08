@@ -11,6 +11,7 @@
         <meta-data
             android:name="android.app.default_searchable"
             android:value=".SearchResultsActivity" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,13 +20,20 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".SearchResultsActivity">
+        <activity
+            android:name=".SearchResultsActivity"
+            android:label="Search Results">
+
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
     </application>
 

@@ -161,8 +161,8 @@ public class CopyOfMainActivity extends MainActivity implements AdapterView.OnIt
         super.onPause();
     }
 
-    public void deleteBook(Book b) {
-        bookData.deleteBook(b);
+    public boolean deleteBook(Book b) {
+        return bookData.deleteBook(b);
     }
 
     public void createBook(Book b) {
