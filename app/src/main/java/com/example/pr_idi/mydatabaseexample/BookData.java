@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.util.MutableBoolean;
 
 public class BookData {
 
@@ -117,7 +118,7 @@ public class BookData {
     public boolean deleteBook(Book book) {
         long id = book.getId();
         System.out.println("Book deleted with id: " + id);
-        if(database.delete(MySQLiteHelper.TABLE_BOOKS, MySQLiteHelper.COLUMN_ID
+        if (database.delete(MySQLiteHelper.TABLE_BOOKS, MySQLiteHelper.COLUMN_ID
                 + " = " + id, null) > 0) return true;
         else return false;
     }
@@ -126,8 +127,7 @@ public class BookData {
     public List<Book> getBooksByAuthor(String author) {
 
         List<Book> books = new ArrayList<>();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + MySQLiteHelper.TABLE_BOOKS + " WHERE author='" + author + "' ORDER BY title",
-                null);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS, allColumns, MySQLiteHelper.COLUMN_AUTHOR + "='" + author + "'", null, null, null, MySQLiteHelper.COLUMN_TITLE);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Book book = cursorToBook(cursor);
@@ -139,11 +139,13 @@ public class BookData {
         return books;
     }
 
-    public List<Book> getAllBooks() {
+    public List<Book> getAllBooks(String sortBy) {
         List<Book> books = new ArrayList<>();
-
+        if (sortBy == "Authors") sortBy = MySQLiteHelper.COLUMN_AUTHOR;
+        else if (sortBy == "Categories") sortBy = MySQLiteHelper.COLUMN_CATEGORY;
+        else sortBy = MySQLiteHelper.COLUMN_TITLE;
         Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
-                allColumns, null, null, null, null, null);
+                allColumns, null, null, null, null, sortBy);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -153,6 +155,20 @@ public class BookData {
         }
         // make sure to close the cursor
         cursor.close();
+        return books;
+    }
+
+    public List<Book> getBooksByCategory(String category) {
+        List<Book> books = new ArrayList<>();
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS, allColumns, MySQLiteHelper.COLUMN_CATEGORY + "='" + category + "'", null, null, null, MySQLiteHelper.COLUMN_TITLE);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Book book = cursorToBook(cursor);
+            books.add(book);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
         return books;
     }
 

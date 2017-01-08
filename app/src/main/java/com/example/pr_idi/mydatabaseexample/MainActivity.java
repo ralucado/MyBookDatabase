@@ -31,7 +31,7 @@ import android.widget.Toast;
 
 import static java.lang.System.out;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener{
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, NavigationView.OnNavigationItemSelectedListener{
     protected BookData bookData;
     protected Toolbar toolbar;
     protected FloatingActionButton fab;
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private ActionBar actionBar;
+    private String sorting = "Titles";
 
     private void addDrawerItems() {
         String[] optionArray = {"Categories", "Help", "About"};
@@ -122,84 +123,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void setupNavigationDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        switch (menuItem.getItemId()) {
-                            case R.id.item_navigation_drawer_titles:
-                                menuItem.setChecked(true);
-                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                                mDrawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
-                            case R.id.item_navigation_drawer_authors:
-                                menuItem.setChecked(true);
-                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                                mDrawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
-                            case R.id.item_navigation_drawer_categories:
-                                menuItem.setChecked(true);
-                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                                mDrawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
-                            case R.id.item_navigation_drawer_about:
-                                menuItem.setChecked(true);
-                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                                mDrawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
-                            case R.id.item_navigation_drawer_help:
-                                menuItem.setChecked(true);
-                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                                mDrawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
-                        }
-                        return true;
-                    }
-                });
+        navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     private void fillList() {
       swipeLayout.setRefreshing(true);
-        List<Book> values = bookData.getAllBooks();
+        List<Book> values;
+        values= bookData.getAllBooks(sorting);
         adapter = new myAdapter(this, R.layout.row, values, this);
         list.setAdapter(adapter);
         swipeLayout.setRefreshing(false);
     }
-
-    private void setUpDrawer() {
-        mDrawerList = (ListView) findViewById(R.id.navList);
-        addDrawerItems();
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "send nudes", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //mDrawerList.setBackgroundColor(getResources().getColor(R.color.background_floating_material_dark));
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu();
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                invalidateOptionsMenu();
-            }
-        };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mDrawerToggle.syncState();
-            }
-        });
-        swipeLayout.setRefreshing(false);
-    }
-
 
     // Basic method to add pseudo-random list of books so that
     // you have an example of insertion and deletion
@@ -287,5 +222,37 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         swipeLayout.setRefreshing(true);
         fillList();
         swipeLayout.setRefreshing(false);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.item_navigation_drawer_titles:
+                menuItem.setChecked(true);
+                sorting =  menuItem.getTitle().toString();
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.item_navigation_drawer_authors:
+                menuItem.setChecked(true);
+                sorting =  menuItem.getTitle().toString();
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.item_navigation_drawer_categories:
+                menuItem.setChecked(true);
+                sorting =  menuItem.getTitle().toString();
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.item_navigation_drawer_about:
+                menuItem.setChecked(true);
+                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.item_navigation_drawer_help:
+                menuItem.setChecked(true);
+                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+        }
+        return true;
     }
 }
