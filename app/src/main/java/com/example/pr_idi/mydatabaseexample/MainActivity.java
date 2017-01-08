@@ -21,6 +21,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import static java.lang.System.out;
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         list = (ListView) findViewById(R.id.list);
         fillList();
         list.setOnItemClickListener(this);
+        TextView emptyText = (TextView)findViewById(android.R.id.empty);
+        list.setEmptyView(emptyText);
         fab = (FloatingActionButton) findViewById(R.id.plusButton);
         list.setOnScrollListener(new ListView.OnScrollListener() {
             int lastFirstItem = 0;

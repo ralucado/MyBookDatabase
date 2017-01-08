@@ -19,7 +19,14 @@
             android:id="@android:id/empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center" />
+            android:text="No results found"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="24sp"
+            android:textAlignment="center"
+            android:fontFamily="sans-serif"
+            android:typeface="normal"
+            android:textColor="@color/secondary_text_default_material_dark"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/plusButton"

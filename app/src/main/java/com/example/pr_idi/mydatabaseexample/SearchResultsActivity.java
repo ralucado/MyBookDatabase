@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,6 +44,8 @@ public class SearchResultsActivity extends MainActivity {
         adapter = new myAdapter(this, R.layout.row, Collections.EMPTY_LIST, this);
         list = (ListView) findViewById(R.id.list);
         list.setAdapter(adapter);
+        TextView emptyText = (TextView)findViewById(android.R.id.empty);
+        list.setEmptyView(emptyText);
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeColors(R.color.colorPrimary,R.color.colorAccent);
