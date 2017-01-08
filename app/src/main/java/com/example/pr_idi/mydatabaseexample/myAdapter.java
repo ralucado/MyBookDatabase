@@ -76,11 +76,12 @@ public class myAdapter extends ArrayAdapter<Book>{
                             .setCancelable(false)
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-
+                                    remove(book);
                                     myParent.deleteBook(book);
-                                    Toast.makeText(myParent, "Changed rating", Toast.LENGTH_SHORT).show();
                                     book.setPersonal_evaluation(value);
                                     myParent.createBook(book);
+                                    add(book);
+                                    Toast.makeText(myParent, "Changed rating", Toast.LENGTH_SHORT).show();
 
                                 }
                             })

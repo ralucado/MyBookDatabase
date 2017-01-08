@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 import static java.lang.System.out;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     protected BookData bookData;
     protected Toolbar toolbar;
     protected FloatingActionButton fab;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
-    private SwipeRefreshLayout swipeLayout;
+    //private SwipeRefreshLayout swipeLayout;
 
     private void addDrawerItems() {
         String[] optionArray = {"Categories", "Help", "About"};
@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         bookData = new BookData(this);
         bookData.open();
-        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        swipeLayout.setOnRefreshListener(this);
+       // swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+       // swipeLayout.setOnRefreshListener(this);
         list = (ListView) findViewById(R.id.list);
         fillList();
         list.setOnItemClickListener(this);
@@ -85,11 +85,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void fillList() {
-        swipeLayout.setRefreshing(true);
+      //  swipeLayout.setRefreshing(true);
         List<Book> values = bookData.getAllBooks();
         adapter = new myAdapter(this, R.layout.row, values, this);
         list.setAdapter(adapter);
-        swipeLayout.setRefreshing(false);
+        //swipeLayout.setRefreshing(false);
     }
 
     private void setUpDrawer() {
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onResume() {
         bookData.open();
         super.onResume();
-        fillList();
+        //fillList();
     }
 
     // Life cycle methods. Check whether it is necessary to reimplement them
@@ -195,9 +195,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
-
+/*
     @Override
     public void onRefresh() {
         fillList();
-    }
+    }*/
 }
