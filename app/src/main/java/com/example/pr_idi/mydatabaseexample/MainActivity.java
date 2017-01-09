@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -247,7 +249,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 return true;
             case R.id.item_navigation_drawer_categories:
                 menuItem.setChecked(true);
-                sorting =  menuItem.getTitle().toString();
+
+                Fragment fragment = new SortedByCategoryFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.list_relative_layout, fragment)
+                        .commit();
+
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.item_navigation_drawer_about:
