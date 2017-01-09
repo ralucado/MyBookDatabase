@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected String sorting;
     protected ArrayList<Book> values = new ArrayList<>();
 
+    private FloatingActionButton myFloatingActionButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,6 +118,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
         // use the SimpleCursorAdapter to show the
         // elements in a ListView
+        final Intent in = new Intent(this,AddNewBookActivity.class);
+        myFloatingActionButton = (FloatingActionButton) findViewById(R.id.plusButton);
+        myFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(in);
+            }
+        });
+
     }
 
     private void setupNavigationDrawerContent(NavigationView navigationView) {
