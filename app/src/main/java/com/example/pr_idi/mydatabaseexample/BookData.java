@@ -40,7 +40,7 @@ public class BookData {
         dbHelper.close();
     }
 
-    public Book createBook(String title, String author) {
+    public Book createBook(String title, String author, String category, String publisher, int year) {
         ContentValues values = new ContentValues();
         Log.d("Creating", "Creating " + title + " " + author);
 
@@ -48,11 +48,10 @@ public class BookData {
         // Must modify the method to add the full data
         values.put(MySQLiteHelper.COLUMN_TITLE, title);
         values.put(MySQLiteHelper.COLUMN_AUTHOR, author);
+        values.put(MySQLiteHelper.COLUMN_CATEGORY, category);
+        values.put(MySQLiteHelper.COLUMN_PUBLISHER, publisher);
+        values.put(MySQLiteHelper.COLUMN_YEAR, year);
 
-        // Invented data
-        values.put(MySQLiteHelper.COLUMN_PUBLISHER, "Do not know");
-        values.put(MySQLiteHelper.COLUMN_YEAR, 2030);
-        values.put(MySQLiteHelper.COLUMN_CATEGORY, "Fantasia");
         values.put(MySQLiteHelper.COLUMN_PERSONAL_EVALUATION, "0");
 
         // Actual insertion of the data using the values variable

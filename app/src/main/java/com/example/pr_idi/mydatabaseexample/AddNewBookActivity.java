@@ -11,7 +11,11 @@ import java.util.ArrayList;
 public class AddNewBookActivity extends AppCompatActivity {
 
     private Button acceptButton;
-    private EditText editText;
+    private EditText editName;
+    private EditText editAuthor;
+    private EditText editCategory;
+    private EditText editEditorial;
+    private EditText editYear;
     private BookData bookData;
 
     @Override
@@ -20,17 +24,23 @@ public class AddNewBookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_book);
 
         acceptButton = (Button) findViewById(R.id.accept);
-        editText = (EditText) findViewById(R.id.editName);
+        editName = (EditText) findViewById(R.id.editName);
+        editAuthor = (EditText) findViewById(R.id.editAuthor);
+        editCategory = (EditText) findViewById(R.id.editCategory);
+        editEditorial = (EditText) findViewById(R.id.editEditorial);
+        editYear = (EditText) findViewById(R.id.editYear);
 
         bookData = new BookData(this);
 
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!editText.getText().toString().isEmpty()){
+                if (!editName.getText().toString().isEmpty()){
 
                     bookData.open();
-                    bookData.createBook(editText.getText().toString(), "jo");
+                    bookData.createBook(editName.getText().toString(), editAuthor.getText().toString(),
+                            editCategory.getText().toString(), editEditorial.getText().toString(),
+                            Integer.valueOf(editYear.getText().toString()));
                     bookData.close();
                 }
             }

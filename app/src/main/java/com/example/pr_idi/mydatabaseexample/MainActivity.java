@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 String[] newBook = new String[]{"Miguel Strogoff", "Jules Verne", "Ulysses", "James Joyce", "Don Quijote", "Miguel de Cervantes", "Metamorphosis", "Kafka", "send", "nudes"};
                 int nextInt = new Random().nextInt(5);
                 // save the new book to the database
-                book = bookData.createBook(newBook[nextInt * 2], newBook[nextInt * 2 + 1]);
+                book = bookData.createBook("no","no","no","no",13);
                 book.setCategory("Pan");
                 // After I get the book data, I add it to the adapter
                 fillList();

@@ -63,18 +63,65 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Norma Comics"
+        android:text="Sci-Fi"
         android:ems="14"
         android:id="@+id/editCategory"
         android:layout_below="@+id/textCategory"
         android:layout_alignStart="@+id/textCategory" />
 
-    <Button
-        android:text="Button"
+    <TextView
+        android:text="Editorial:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/editCategory"
+        android:layout_alignStart="@+id/editCategory"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textEditorial" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Norma Comics"
+        android:ems="14"
+        android:id="@+id/editEditorial"
+        android:layout_below="@+id/textEditorial"
+        android:layout_alignStart="@+id/textEditorial" />
+
+    <TextView
+        android:text="Any de publicació:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editEditorial"
+        android:layout_alignStart="@+id/editEditorial"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textYear" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="1714"
+        android:ems="14"
+        android:id="@+id/editYear"
+        android:layout_below="@+id/textYear"
+        android:layout_alignStart="@+id/textYear" />
+
+    <TextView
+        android:text="Puntuació:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editYear"
+        android:layout_alignStart="@+id/editYear"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textPuntuacio" />
+
+    <Button
+        android:text="ACCEPT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/accept"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/accept" />
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
