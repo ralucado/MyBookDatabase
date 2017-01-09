@@ -122,8 +122,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // use the SimpleCursorAdapter to show the
         // elements in a ListView
         final Intent in = new Intent(this,AddNewBookActivity.class);
-        myFloatingActionButton = (FloatingActionButton) findViewById(R.id.plusButton);
-        myFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(in);
@@ -147,27 +146,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     // Basic method to add pseudo-random list of books so that
     // you have an example of insertion and deletion
 
-    // Will be called via the onClick attribute
-    // of the buttons in main.xml
-    public void onClick(View view) {
-        @SuppressWarnings("unchecked")
-
-        Book book;
-        switch (view.getId()) {
-            case R.id.plusButton:
-                String[] newBook = new String[]{"Miguel Strogoff", "Jules Verne", "Ulysses", "James Joyce", "Don Quijote", "Miguel de Cervantes", "Metamorphosis", "Kafka", "send", "nudes"};
-                int nextInt = new Random().nextInt(5);
-                // save the new book to the database
-                book = bookData.createBook("no","no","no","no",13);
-                book.setCategory("Pan");
-                // After I get the book data, I add it to the adapter
-                fillList();
-                break;
-            default:
-                break;
-        }
-        adapter.notifyDataSetChanged();
-    }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int integer, long l) {

@@ -1,5 +1,7 @@
 package com.example.pr_idi.mydatabaseexample;
 
+import android.app.Activity;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +33,7 @@ public class AddNewBookActivity extends AppCompatActivity {
         editYear = (EditText) findViewById(R.id.editYear);
 
         bookData = new BookData(this);
-
+        final Activity THIS = this;
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,6 +45,7 @@ public class AddNewBookActivity extends AppCompatActivity {
                             Integer.valueOf(editYear.getText().toString()));
                     bookData.close();
                 }
+                NavUtils.navigateUpFromSameTask(THIS);
             }
         });
 
