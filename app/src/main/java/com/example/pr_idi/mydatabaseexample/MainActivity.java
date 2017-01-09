@@ -240,16 +240,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         switch (menuItem.getItemId()) {
             case R.id.item_navigation_drawer_titles:
                 menuItem.setChecked(true);
+                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
                 sorting =  menuItem.getTitle().toString();
+                fillList();
+
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.item_navigation_drawer_authors:
                 menuItem.setChecked(true);
                 sorting =  menuItem.getTitle().toString();
+                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                fillList();
+
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.item_navigation_drawer_categories:
                 menuItem.setChecked(true);
+                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
 
                 Fragment fragment = new SortedByCategoryFragment();
                 FragmentManager fragmentManager = getSupportFragmentManager();
