@@ -163,8 +163,8 @@ public class BookData {
 
     public List<Book> getAllBooks(String sortBy) {
         List<Book> books = new ArrayList<>();
-        if (sortBy == "Authors") sortBy = MySQLiteHelper.COLUMN_AUTHOR;
-        else if (sortBy == "Categories") sortBy = MySQLiteHelper.COLUMN_CATEGORY;
+        if (sortBy.equals("Authors")) sortBy = MySQLiteHelper.COLUMN_AUTHOR;
+        else if (sortBy.equals("Categories")) sortBy = MySQLiteHelper.COLUMN_CATEGORY;
         else sortBy = MySQLiteHelper.COLUMN_TITLE;
         Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
                 allColumns, null, null, null, null, sortBy);
