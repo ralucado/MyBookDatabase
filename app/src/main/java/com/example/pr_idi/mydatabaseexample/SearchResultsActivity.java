@@ -15,8 +15,10 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import static java.lang.System.out;
 
@@ -26,10 +28,15 @@ import static java.lang.System.out;
 
 public class SearchResultsActivity extends MainActivity {
     private String lastQuery = "";
-
+    private FuzzyScore fuzzyCalculator;
     private void fillList(){
         values.clear();
-        values.addAll(bookData.getBooksByAuthor(lastQuery));
+        List<Book> aux = bookData.getAllBooks("Titles");
+        for (Book book : aux) {
+            String author = book.getAuthor();
+            if(fuzzyCalculator.fuzzyScore(author,lastQuery) > author.length()/2) values.add(book);
+        }
+
         adapter.notifyDataSetChanged();
     }
 
@@ -37,6 +44,7 @@ public class SearchResultsActivity extends MainActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_view);
+        fuzzyCalculator = new FuzzyScore(Locale.getDefault());
         sorting = "Titles";
         fab = (FloatingActionButton) findViewById(R.id.plusButton);
         fab.hide();
