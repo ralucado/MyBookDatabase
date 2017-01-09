@@ -23,10 +23,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -52,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sorting = "Titles";
@@ -253,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 Fragment fragment = new SortedByCategoryFragment();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.list_relative_layout, fragment)
+                        .replace(R.id.swipe_refresh_layout, fragment)
                         .commit();
 
                 mDrawerLayout.closeDrawer(GravityCompat.START);

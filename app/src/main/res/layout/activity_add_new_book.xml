@@ -10,26 +10,64 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.pr_idi.mydatabaseexample.AddNewBookActivity">
 
+    <TextView
+        android:text="Nom:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:id="@+id/textName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Autor:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editName"
+        android:layout_alignStart="@+id/editName"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textAuthor" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
         android:ems="10"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/editName"
         android:layout_below="@+id/textName"
         android:layout_alignStart="@+id/textName" />
 
-    <TextView
-        android:text="TextView"
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="29dp"
-        android:id="@+id/textName"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:inputType="textPersonName"
+        android:text="J. K. Rowling"
+        android:ems="14"
+        android:layout_marginTop="10dp"
+        android:id="@+id/editAuthor"
+        android:layout_below="@+id/textAuthor"
+        android:layout_alignStart="@+id/textAuthor" />
+
+    <TextView
+        android:text="Categoria:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editAuthor"
+        android:layout_alignStart="@+id/editAuthor"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textCategory" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Norma Comics"
+        android:ems="14"
+        android:id="@+id/editCategory"
+        android:layout_below="@+id/textCategory"
+        android:layout_alignStart="@+id/textCategory" />
 
     <Button
         android:text="Button"
@@ -38,4 +76,5 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/accept" />
+
 </RelativeLayout>

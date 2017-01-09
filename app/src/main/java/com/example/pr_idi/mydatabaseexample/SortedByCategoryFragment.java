@@ -75,6 +75,7 @@ public class SortedByCategoryFragment extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
+
         return v;
     }
 
