@@ -75,22 +75,19 @@ public class myAdapter extends ArrayAdapter<Book> {
                 // set title
                 if (fromUser) {
                     alertDialogBuilder.setTitle("Changed Rating");
+
                     alertDialogBuilder
                             .setMessage("Do you want to change the book rating?")
                             .setCancelable(false)
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    if (myParent.deleteBook(book)) {
-                                        remove(book);
-                                        book.setPersonal_evaluation(value);
-                                        myParent.createBook(book);
-                                        add(book);
-                                        Toast.makeText(myParent, "Changed rating", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(myContext, "Book does not exist, please swipe up to refresh.", Toast.LENGTH_LONG).show();
-                                        bar.setRating(book.getPersonal_evaluation());
-                                    }
+                                    myParent.changeRating(myObjects.get(position), value);
+                                    myObjects.get(position).setPersonal_evaluation(value);
+                                    Toast.makeText(myParent, "Changed rating", Toast.LENGTH_SHORT).show();
+                                    notifyDataSetChanged();
                                 }
+
+
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {

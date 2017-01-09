@@ -1,6 +1,8 @@
 package com.example.pr_idi.mydatabaseexample;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -38,18 +41,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected ListView list;
     protected myAdapter adapter;
     protected SwipeRefreshLayout swipeLayout;
-    private ListView mDrawerList;
-    private ArrayAdapter<String> mAdapter;
-    private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private ActionBar actionBar;
-    private String sorting = "Titles";
-
-    private void addDrawerItems() {
-        String[] optionArray = {"Categories", "Help", "About"};
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, optionArray);
-        mDrawerList.setAdapter(mAdapter);
-    }
+    protected String sorting;
+    protected ArrayList<Book> values = new ArrayList<>();
 
 
     @Override
@@ -57,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        sorting = "Titles";
         //set the toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorScheme(R.color.colorAccent);
         list = (ListView) findViewById(R.id.list);
+        adapter = new myAdapter(this, R.layout.row, values, this);
+        list.setAdapter(adapter);
         fillList();
         list.setOnItemClickListener(this);
         TextView emptyText = (TextView)findViewById(android.R.id.empty);
@@ -128,11 +125,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void fillList() {
-      swipeLayout.setRefreshing(true);
-        List<Book> values;
-        values= bookData.getAllBooks(sorting);
-        adapter = new myAdapter(this, R.layout.row, values, this);
-        list.setAdapter(adapter);
+        values.clear();
+        values.addAll(bookData.getAllBooks(sorting));
+        adapter.notifyDataSetChanged();
         swipeLayout.setRefreshing(false);
     }
 
@@ -153,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 book = bookData.createBook(newBook[nextInt * 2], newBook[nextInt * 2 + 1]);
                 book.setCategory("Pan");
                 // After I get the book data, I add it to the adapter
-                adapter.add(book);
+                fillList();
                 break;
             default:
                 break;
@@ -191,6 +186,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void createBook(Book b) {
         bookData.createBook(b);
+    }
+    public void changeRating(Book b, float value){
+        bookData.changeRating(b,value);
     }
 
     @Override

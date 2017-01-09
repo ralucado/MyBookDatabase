@@ -28,24 +28,24 @@ public class SearchResultsActivity extends MainActivity {
     private String lastQuery = "";
 
     private void fillList(){
-        List<Book> values = bookData.getBooksByAuthor(lastQuery);
-        fillList(values);
-    }
-    private void fillList(List<Book> values) {
-        adapter = new myAdapter(this, R.layout.row, values, this);
-        list.setAdapter(adapter);
+        values.clear();
+        values.addAll(bookData.getBooksByAuthor(lastQuery));
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_view);
+        sorting = "Titles";
         fab = (FloatingActionButton) findViewById(R.id.plusButton);
         fab.hide();
         bookData = new BookData(this);
         bookData.open();
-        adapter = new myAdapter(this, R.layout.row, Collections.EMPTY_LIST, this);
         list = (ListView) findViewById(R.id.list);
+        adapter = new myAdapter(this, R.layout.row, values, this);
+        list.setAdapter(adapter);
+        fillList();
         list.setAdapter(adapter);
         TextView emptyText = (TextView)findViewById(android.R.id.empty);
         list.setEmptyView(emptyText);

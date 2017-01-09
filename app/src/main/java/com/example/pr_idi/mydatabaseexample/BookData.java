@@ -53,7 +53,7 @@ public class BookData {
         values.put(MySQLiteHelper.COLUMN_PUBLISHER, "Do not know");
         values.put(MySQLiteHelper.COLUMN_YEAR, 2030);
         values.put(MySQLiteHelper.COLUMN_CATEGORY, "Fantasia");
-        values.put(MySQLiteHelper.COLUMN_PERSONAL_EVALUATION, "regular");
+        values.put(MySQLiteHelper.COLUMN_PERSONAL_EVALUATION, "0");
 
         // Actual insertion of the data using the values variable
         long insertId = database.insert(MySQLiteHelper.TABLE_BOOKS, null,
@@ -117,10 +117,32 @@ public class BookData {
 
     public boolean deleteBook(Book book) {
         long id = book.getId();
-        System.out.println("Book deleted with id: " + id);
         if (database.delete(MySQLiteHelper.TABLE_BOOKS, MySQLiteHelper.COLUMN_ID
-                + " = " + id, null) > 0) return true;
+                + " = " + id, null) > 0) {
+            System.out.println("Book deleted with id: " + id);
+            return true;
+        }
+
         else return false;
+    }
+
+    public void changeRating(Book book, float val){
+        long id = book.getId();
+        ContentValues values = new ContentValues();
+
+        // Add data: Note that this method only provides title and author
+        // Must modify the method to add the full data
+        values.put(MySQLiteHelper.COLUMN_TITLE, book.getTitle());
+        values.put(MySQLiteHelper.COLUMN_AUTHOR, book.getAuthor());
+        values.put(MySQLiteHelper.COLUMN_PUBLISHER, book.getPublisher());
+        values.put(MySQLiteHelper.COLUMN_YEAR, book.getYear());
+        values.put(MySQLiteHelper.COLUMN_CATEGORY, book.getCategory());
+        values.put(MySQLiteHelper.COLUMN_PERSONAL_EVALUATION, String.valueOf(val));
+        if(database.update(MySQLiteHelper.TABLE_BOOKS,values,MySQLiteHelper.COLUMN_ID
+                + " = " + id,null) > 0) {
+            System.out.println("Book updated with id: " + id);
+        }
+
     }
 
 

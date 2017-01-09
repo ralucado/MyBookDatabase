@@ -32,7 +32,7 @@
 
     <RatingBar
         android:id="@+id/ratingBar"
-        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
+        style="@android:style/Widget.Material.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/authorView"
@@ -40,7 +40,8 @@
         android:numStars="5"
         android:rating="2.5"
         android:stepSize="1"
-        android:isIndicator="false" />
+        android:isIndicator="false"
+        android:progressTint="@color/colorAccent" />
 
     <ImageView
         android:id="@+id/imageview"
