@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 Fragment fragment = new SortedByCategoryFragment();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.swipe_refresh_layout, fragment)
+                        .replace(R.id.recycler_view, fragment)
                         .commit();
 
                 mDrawerLayout.closeDrawer(GravityCompat.START);
