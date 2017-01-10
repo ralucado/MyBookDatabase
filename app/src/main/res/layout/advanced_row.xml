@@ -4,7 +4,16 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="16dp">
-
+<!--
+    <ImageView
+        android:id="@+id/iconView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_more_vert_white_24dp"
+        />
+-->
     <TextView
         android:id="@+id/titleView"
         android:layout_width="wrap_content"
@@ -28,14 +37,38 @@
         android:textSize="13sp"
         android:typeface="normal" />
 
+    <TextView
+        android:id="@+id/categoryView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/authorView"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif"
+        android:text="A book category"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="@color/abc_secondary_text_material_dark"
+        android:textSize="13sp"
+        android:typeface="normal" />
 
+    <TextView
+        android:id="@+id/yearView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/categoryView"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif"
+        android:text="A book year"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="@color/abc_secondary_text_material_dark"
+        android:textSize="13sp"
+        android:typeface="normal" />
 
     <RatingBar
         android:id="@+id/ratingBar"
         style="@android:style/Widget.Material.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/authorView"
+        android:layout_below="@id/yearView"
         android:layout_marginTop="4dp"
         android:numStars="5"
         android:rating="2.5"
@@ -51,20 +84,5 @@
         android:layout_centerVertical="true"
         android:src="@drawable/ic_more_vert_white_24dp"
         />
-
-
-    <TextView
-        android:id="@+id/categoryView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@id/imageview"
-        android:layout_alignTop="@id/titleView"
-        android:layout_marginRight="40dp"
-        android:fontFamily="sans-serif"
-        android:text="A book category"
-        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:textColor="@color/abc_secondary_text_material_dark"
-        android:textSize="13sp"
-        android:typeface="normal" />
 
 </RelativeLayout>
