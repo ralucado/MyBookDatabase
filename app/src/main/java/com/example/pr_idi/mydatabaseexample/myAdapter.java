@@ -136,7 +136,7 @@ public class myAdapter extends ArrayAdapter<Book> {
                                             myContext.startActivity(in);
 
                                             //Or Some other code you want to put here.. This is just an example.
-                                            Toast.makeText(myContext, "Edit not implemented for now", Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(myContext, "Edit not implemented for now", Toast.LENGTH_SHORT).show();
 
                                             break;
                                         case R.id.delete:

@@ -52,7 +52,7 @@ public class EditBookActivity extends AppCompatActivity {
                 if (!editName.getText().toString().isEmpty()){
                     // edit no create!!!
                     bookData.open();
-                    bookData.editBook(book, editName.getText().toString(), editAuthor.getText().toString(),
+                    bookData.createBook(editName.getText().toString(), editAuthor.getText().toString(),
                             editCategory.getText().toString(), editEditorial.getText().toString(),
                             Integer.valueOf(editYear.getText().toString()), String.valueOf(ratingBar.getRating()));
                     bookData.close();
