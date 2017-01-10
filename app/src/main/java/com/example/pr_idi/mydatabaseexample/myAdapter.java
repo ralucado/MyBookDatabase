@@ -2,6 +2,8 @@ package com.example.pr_idi.mydatabaseexample;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.BoolRes;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.internal.view.ContextThemeWrapper;
 import android.support.v7.widget.PopupMenu;
@@ -24,13 +26,13 @@ public class myAdapter extends ArrayAdapter<Book> {
     final myAdapter THIS = this;
     List<Book> myObjects;
     Context myContext;
-    MainActivity myParent = null;
+    BookData bookData;
 
-    public myAdapter(Context context, int resource, List<Book> objects, final MainActivity parent) {
+    public myAdapter(Context context, int resource, List<Book> objects, final BookData bookdata) {
         super(context, resource, objects);
         myObjects = objects;
         myContext = context;
-        myParent = parent;
+        bookData = bookdata;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -81,9 +83,8 @@ public class myAdapter extends ArrayAdapter<Book> {
                             .setCancelable(false)
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    myParent.changeRating(myObjects.get(position), value);
+                                    bookData.changeRating(myObjects.get(position), value);
                                     myObjects.get(position).setPersonal_evaluation(value);
-                                    Toast.makeText(myParent, "Changed rating", Toast.LENGTH_SHORT).show();
                                     notifyDataSetChanged();
                                 }
 
@@ -133,7 +134,7 @@ public class myAdapter extends ArrayAdapter<Book> {
 
                                             break;
                                         case R.id.delete:
-                                            if (myParent.deleteBook(book)) remove(book);
+                                            if (bookData.deleteBook(book)) remove(book);
                                             else
                                                 Toast.makeText(myContext, "Book does not exist, please swipe up to refresh.", Toast.LENGTH_LONG).show();
                                             break;

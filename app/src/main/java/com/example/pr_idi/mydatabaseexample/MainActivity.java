@@ -38,17 +38,10 @@ import android.widget.Toast;
 
 import static java.lang.System.out;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, NavigationView.OnNavigationItemSelectedListener{
-    protected BookData bookData;
+public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener{
     protected Toolbar toolbar;
-    protected FloatingActionButton fab;
-    protected ListView list;
-    protected myAdapter adapter;
-    protected SwipeRefreshLayout swipeLayout;
-    private DrawerLayout mDrawerLayout;
     private ActionBar actionBar;
-    protected String sorting;
-    protected ArrayList<Book> values = new ArrayList<>();
+    private DrawerLayout mDrawerLayout;
 
     private FloatingActionButton myFloatingActionButton;
 
@@ -56,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sorting = "Titles";
         //set the toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -76,58 +68,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setupNavigationDrawerContent(navigationView);
 
 
-        //setting the main list
-        bookData = new BookData(this);
-        bookData.open();
-        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        swipeLayout.setOnRefreshListener(this);
-        swipeLayout.setColorScheme(R.color.colorAccent);
-        list = (ListView) findViewById(R.id.list);
-        adapter = new myAdapter(this, R.layout.row, values, this);
-        list.setAdapter(adapter);
-        fillList();
-        list.setOnItemClickListener(this);
-        TextView emptyText = (TextView)findViewById(android.R.id.empty);
-        list.setEmptyView(emptyText);
-        fab = (FloatingActionButton) findViewById(R.id.plusButton);
-        list.setOnScrollListener(new ListView.OnScrollListener() {
-            int lastFirstItem = 0;
-            boolean down = false;
 
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                boolean enable = false;
-                if(list != null && list.getChildCount() > 0) {
-                    // check if the first item of the list is visible
-                    boolean firstItemVisible = list.getFirstVisiblePosition() == 0;
-                    // check if the top of the first item is visible
-                    boolean topOfFirstItemVisible = list.getChildAt(0).getTop() == 0;
-                    enable = firstItemVisible && topOfFirstItemVisible;
-                }
-                swipeLayout.setEnabled(enable);
-                if (lastFirstItem > firstVisibleItem) down = true;
-                else if (lastFirstItem < firstVisibleItem) down = false;
-                lastFirstItem = firstVisibleItem;
-                final int lastItem = firstVisibleItem + visibleItemCount;
-                if (totalItemCount != 0 && firstVisibleItem > 0 && !down && fab.isShown())
-                    fab.hide();
-                else fab.show();
-            }
-
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == SCROLL_STATE_IDLE && down) fab.show();
-            }
-        });
-        // use the SimpleCursorAdapter to show the
-        // elements in a ListView
-        final Intent in = new Intent(this,AddNewBookActivity.class);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(in);
-            }
-        });
 
     }
 
@@ -136,51 +77,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    private void fillList() {
-        values.clear();
-        values.addAll(bookData.getAllBooks(sorting));
-        adapter.notifyDataSetChanged();
-        swipeLayout.setRefreshing(false);
-    }
+
 
     // Basic method to add pseudo-random list of books so that
     // you have an example of insertion and deletion
 
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int integer, long l) {
-
-        Toast.makeText(MainActivity.this, "send nudes", Toast.LENGTH_SHORT).show();
-    }
-
     // Life cycle methods. Check whether it is necessary to reimplement them
 
-    @Override
-    protected void onResume() {
-        bookData.open();
-        super.onResume();
-        adapter.notifyDataSetInvalidated();
-        //fillList(); //DANGER THIS FUCK ALL UP NEVER UNCOMMENT OR YOU WILL WANT TO DIE
-    }
-
-    // Life cycle methods. Check whether it is necessary to reimplement them
-
-    @Override
-    protected void onPause() {
-        bookData.close();
-        super.onPause();
-    }
-
-    public boolean deleteBook(Book b) {
-        return bookData.deleteBook(b);
-    }
-
-    public void createBook(Book b) {
-        bookData.createBook(b);
-    }
-    public void changeRating(Book b, float value){
-        bookData.changeRating(b,value);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -206,55 +110,43 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onRefresh() {
-        swipeLayout.setRefreshing(true);
-        fillList();
-        swipeLayout.setRefreshing(false);
-    }
+
 
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
+        Fragment fragment = null;
+        Class fragmentClass;
         switch (menuItem.getItemId()) {
             case R.id.item_navigation_drawer_titles:
-                menuItem.setChecked(true);
-                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                sorting =  menuItem.getTitle().toString();
-                fillList();
-
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-                return true;
+                fragmentClass = mainFragment.class;
+                break;
             case R.id.item_navigation_drawer_authors:
-                menuItem.setChecked(true);
-                sorting =  menuItem.getTitle().toString();
-                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                fillList();
-
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-                return true;
+                fragmentClass = mainFragment.class;
+                break;
             case R.id.item_navigation_drawer_categories:
-                menuItem.setChecked(true);
-                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                fragmentClass = SortedByCategoryFragment.class;
 
-                Fragment fragment = new SortedByCategoryFragment();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.recycler_view, fragment)
-                        .commit();
-
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-                return true;
+                break;
             case R.id.item_navigation_drawer_about:
-                menuItem.setChecked(true);
-                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-                return true;
+                fragmentClass = mainFragment.class;
+                break;
             case R.id.item_navigation_drawer_help:
-                menuItem.setChecked(true);
-                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-                return true;
+                fragmentClass = mainFragment.class;
+                break;
+            default:
+                fragmentClass = mainFragment.class;
         }
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.recycler_view_frame, fragment).commit();
+
+        Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+        menuItem.setChecked(true);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 }

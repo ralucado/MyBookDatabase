@@ -34,10 +34,12 @@
 
         <include layout="@layout/content_scrolling" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <FrameLayout
+            android:id="@+id/recycler_view_frame"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"
+            android:background="@color/background_material_dark"
+            android:clickable="true"/>
 
     </FrameLayout>
 

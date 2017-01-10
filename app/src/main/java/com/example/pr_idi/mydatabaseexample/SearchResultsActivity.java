@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -30,7 +31,16 @@ import static java.lang.System.out;
  * Created by raluca on 07/01/17.
  */
 
-public class SearchResultsActivity extends MainActivity {
+public class SearchResultsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+    protected Toolbar toolbar;
+    private ActionBar actionBar;
+    protected BookData bookData;
+    protected FloatingActionButton fab;
+    protected ListView list;
+    protected myAdapter adapter;
+    protected String sorting;
+    protected SwipeRefreshLayout swipeLayout;
+    protected ArrayList<Book> values = new ArrayList<>();
     private String lastQuery = "";
     private FuzzyScore fuzzyCalculator;
     private void fillList(){
@@ -55,7 +65,7 @@ public class SearchResultsActivity extends MainActivity {
         bookData = new BookData(this);
         bookData.open();
         list = (ListView) findViewById(R.id.list);
-        adapter = new myAdapter(this, R.layout.row, values, this);
+        adapter = new myAdapter(this, R.layout.row, values, bookData);
         list.setAdapter(adapter);
         fillList();
         list.setAdapter(adapter);
