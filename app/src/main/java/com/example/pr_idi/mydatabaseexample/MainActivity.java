@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     private ActionBar actionBar;
     private DrawerLayout mDrawerLayout;
 
-    private FloatingActionButton myFloatingActionButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         }
 
         setupNavigationDrawerContent(navigationView);
+
+        displayFragment(mainFragment.class);
 
 
 
@@ -114,7 +115,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
-        Fragment fragment = null;
         Class fragmentClass;
         switch (menuItem.getItemId()) {
             case R.id.item_navigation_drawer_titles:
@@ -136,6 +136,16 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             default:
                 fragmentClass = mainFragment.class;
         }
+        displayFragment(fragmentClass);
+
+        Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+        menuItem.setChecked(true);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void displayFragment(Class fragmentClass) {
+        Fragment fragment = null;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         }catch(Exception e){
@@ -143,10 +153,5 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.recycler_view_frame, fragment).commit();
-
-        Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-        menuItem.setChecked(true);
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
     }
 }
