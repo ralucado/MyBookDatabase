@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_new_book"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.pr_idi.mydatabaseexample.AddNewBookActivity">
+
+    <TextView
+        android:text="Nom:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:id="@+id/textName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Autor:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editName"
+        android:layout_alignStart="@+id/editName"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textAuthor" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="10dp"
+        android:id="@+id/editName"
+        android:layout_below="@+id/textName"
+        android:layout_alignStart="@+id/textName" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="J. K. Rowling"
+        android:ems="14"
+        android:layout_marginTop="10dp"
+        android:id="@+id/editAuthor"
+        android:layout_below="@+id/textAuthor"
+        android:layout_alignStart="@+id/textAuthor" />
+
+    <TextView
+        android:text="Categoria:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editAuthor"
+        android:layout_alignStart="@+id/editAuthor"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textCategory" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Sci-Fi"
+        android:ems="14"
+        android:id="@+id/editCategory"
+        android:layout_below="@+id/textCategory"
+        android:layout_alignStart="@+id/textCategory" />
+
+    <TextView
+        android:text="Editorial:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editCategory"
+        android:layout_alignStart="@+id/editCategory"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textEditorial" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Norma Comics"
+        android:ems="14"
+        android:id="@+id/editEditorial"
+        android:layout_below="@+id/textEditorial"
+        android:layout_alignStart="@+id/textEditorial" />
+
+    <TextView
+        android:text="Any de publicació:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editEditorial"
+        android:layout_alignStart="@+id/editEditorial"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textYear" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:text="1714"
+        android:ems="14"
+        android:id="@+id/editYear"
+        android:layout_below="@+id/textYear"
+        android:layout_alignStart="@+id/textYear" />
+
+    <TextView
+        android:text="Puntuació:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editYear"
+        android:layout_alignStart="@+id/editYear"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textPuntuacio" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@android:style/Widget.Material.RatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textPuntuacio"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:numStars="5"
+        android:rating="2.5"
+        android:stepSize="1"
+        android:isIndicator="false"
+        android:progressTint="@color/colorAccent" />
+
+    <Button
+        android:text="ACCEPT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/accept"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

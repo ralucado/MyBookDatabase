@@ -2,6 +2,7 @@ package com.example.pr_idi.mydatabaseexample;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.BoolRes;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
@@ -130,6 +131,9 @@ public class myAdapter extends ArrayAdapter<Book> {
                                     switch (item.getItemId()) {
                                         case R.id.edit:
 
+                                            Intent in = new Intent(myContext, EditBookActivity.class);
+                                            in.putExtra("mybook", book);
+                                            myContext.startActivity(in);
                                             //Or Some other code you want to put here.. This is just an example.
                                             Toast.makeText(myContext, "Edit not implemented for now", Toast.LENGTH_SHORT).show();
 
