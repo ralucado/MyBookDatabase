@@ -128,10 +128,10 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
                 break;
             case R.id.item_navigation_drawer_about:
-                fragmentClass = mainFragment.class;
+                fragmentClass = AboutFragment.class;
                 break;
             case R.id.item_navigation_drawer_help:
-                fragmentClass = mainFragment.class;
+                fragmentClass = HelpFragment.class;
                 break;
             default:
                 fragmentClass = mainFragment.class;

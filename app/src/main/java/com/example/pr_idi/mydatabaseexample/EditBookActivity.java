@@ -27,14 +27,21 @@ public class EditBookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_book);
 
         Intent i = getIntent();
-        Book book = (Book)i.getSerializableExtra("mybook");
+        Book book = (Book) i.getSerializableExtra("mybook");
 
         acceptButton = (Button) findViewById(R.id.accept);
+        editName = (EditText) findViewById(R.id.editName);
+        editAuthor = (EditText) findViewById(R.id.editAuthor);
+        editCategory = (EditText) findViewById(R.id.editCategory);
+        editEditorial = (EditText) findViewById(R.id.editEditorial);
+        editYear = (EditText) findViewById(R.id.editYear);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+
         editName.setText(book.getTitle());
         editAuthor.setText(book.getAuthor());
         editCategory.setText(book.getCategory());
         editEditorial.setText(book.getPublisher());
-        editYear.setText(book.getYear());
+        editYear.setText(String.valueOf(book.getYear()));
         ratingBar.setRating(book.getPersonal_evaluation());
 
         bookData = new BookData(this);
@@ -43,9 +50,9 @@ public class EditBookActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!editName.getText().toString().isEmpty()){
-
+                    // edit no create!!!
                     bookData.open();
-                    bookData.createBook(editName.getText().toString(), editAuthor.getText().toString(),
+                    bookData.editBook(book, editName.getText().toString(), editAuthor.getText().toString(),
                             editCategory.getText().toString(), editEditorial.getText().toString(),
                             Integer.valueOf(editYear.getText().toString()), String.valueOf(ratingBar.getRating()));
                     bookData.close();

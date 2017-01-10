@@ -134,6 +134,7 @@ public class myAdapter extends ArrayAdapter<Book> {
                                             Intent in = new Intent(myContext, EditBookActivity.class);
                                             in.putExtra("mybook", book);
                                             myContext.startActivity(in);
+
                                             //Or Some other code you want to put here.. This is just an example.
                                             Toast.makeText(myContext, "Edit not implemented for now", Toast.LENGTH_SHORT).show();
 

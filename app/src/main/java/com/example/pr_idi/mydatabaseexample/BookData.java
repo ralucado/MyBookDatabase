@@ -113,6 +113,11 @@ public class BookData {
         return b;
     }
 
+    public void editBook(Book book, String title, String author, String category, String publisher, int year, String rating){
+
+
+    }
+
     public boolean deleteBook(Book book) {
         long id = book.getId();
         if (database.delete(MySQLiteHelper.TABLE_BOOKS, MySQLiteHelper.COLUMN_ID
