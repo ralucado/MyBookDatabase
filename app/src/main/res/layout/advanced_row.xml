@@ -79,6 +79,21 @@
         android:isIndicator="false"
         android:progressTint="@color/colorAccent" />
 
+    <TextView
+        android:id="@+id/publisherView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/categoryView"
+        android:layout_below="@id/authorView"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif"
+        android:text="A book publisher"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="@color/abc_secondary_text_material_dark"
+        android:textSize="13sp"
+        android:typeface="normal" />
+
     <ImageView
         android:id="@+id/imageview"
         android:layout_width="wrap_content"

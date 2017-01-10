@@ -31,10 +31,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.title.setText(myBooks.get(position).getTitle());
-        holder.author.setText(myBooks.get(position).getAuthor());
-        holder.ratingBar.setRating(myBooks.get(position).getPersonal_evaluation());
-        holder.categoryView.setText(myBooks.get(position).getCategory());
+        Book tmp = myBooks.get(position);
+        holder.title.setText(tmp.getTitle());
+        holder.author.setText(tmp.getAuthor());
+        holder.category.setText(tmp.getCategory());
+        holder.publisher.setText(tmp.getPublisher());
+        holder.year.setText(String.valueOf(tmp.getYear()));
+        holder.ratingBar.setRating(tmp.getPersonal_evaluation());
+        holder.category.setText(tmp.getCategory());
     }
 
     @Override
@@ -46,17 +50,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public TextView title;
         public TextView author;
+        public TextView category;
+        public TextView publisher;
+        public TextView year;
         public RatingBar ratingBar;
         public ImageView imageview;
-        public TextView categoryView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.titleView);
             author = (TextView) itemView.findViewById(R.id.authorView);
+            category = (TextView) itemView.findViewById(R.id.categoryView);
+            publisher = (TextView) itemView.findViewById(R.id.publisherView);
+            year = (TextView) itemView.findViewById(R.id.yearView);
             ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
             imageview = (ImageView) itemView.findViewById(R.id.imageview);
-            categoryView = (TextView) itemView.findViewById(R.id.categoryView);
+
 
             // do the same with all
 

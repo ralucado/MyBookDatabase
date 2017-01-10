@@ -100,7 +100,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:text="1714"
         android:ems="14"
         android:id="@+id/editYear"
