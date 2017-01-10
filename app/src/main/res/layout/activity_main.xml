@@ -32,13 +32,10 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/myToolbarTheme" />
 
-        <include layout="@layout/content_scrolling" />
-
         <FrameLayout
             android:id="@+id/recycler_view_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_material_dark"
             android:clickable="true"/>
 
     </FrameLayout>

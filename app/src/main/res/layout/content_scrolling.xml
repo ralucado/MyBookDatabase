@@ -1,51 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/swipe_refresh_layout"
-    android:layout_width="match_parent"
-    android:layout_marginTop="56dp"
-    android:layout_height="wrap_content">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/list_relative_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="56dp"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/list_relative_layout">
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="No results found"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/secondary_text_default_material_dark"
+        android:textSize="24sp"
+        android:typeface="normal" />
 
-        <ListView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/plusButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:hapticFeedbackEnabled="true"
+        android:onClick="onClick"
+        android:soundEffectsEnabled="true"
+        android:src="@drawable/ic_add_white_24dp"
+        app:elevation="6dp" />
 
-        <TextView
-            android:id="@android:id/empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="No results found"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="24sp"
-            android:textAlignment="center"
-            android:fontFamily="sans-serif"
-            android:typeface="normal"
-            android:textColor="@color/secondary_text_default_material_dark" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/plusButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:onClick="onClick"
-            android:src="@drawable/ic_add_white_24dp"
-            app:elevation="6dp"
-            android:hapticFeedbackEnabled="true"
-            android:soundEffectsEnabled="true" />
-
-    </RelativeLayout>
-</android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

@@ -59,7 +59,6 @@ public class myAdapter extends ArrayAdapter<Book> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         final Book book = getItem(position);
-
         if (vi == null) vi = inflater.inflate(R.layout.row, null);
         TextView title = (TextView) vi.findViewById(R.id.titleView);
         Book b = myObjects.get(position);
@@ -83,7 +82,9 @@ public class myAdapter extends ArrayAdapter<Book> {
                             .setCancelable(false)
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    bookData.open();
                                     bookData.changeRating(myObjects.get(position), value);
+                                    bookData.close();
                                     myObjects.get(position).setPersonal_evaluation(value);
                                     notifyDataSetChanged();
                                 }
@@ -134,9 +135,11 @@ public class myAdapter extends ArrayAdapter<Book> {
 
                                             break;
                                         case R.id.delete:
+                                            bookData.open();
                                             if (bookData.deleteBook(book)) remove(book);
                                             else
                                                 Toast.makeText(myContext, "Book does not exist, please swipe up to refresh.", Toast.LENGTH_LONG).show();
+                                            bookData.close();
                                             break;
 
                                         default:

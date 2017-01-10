@@ -31,7 +31,7 @@ import static java.lang.System.out;
  * Created by raluca on 07/01/17.
  */
 
-public class SearchResultsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class SearchResultsActivity extends AppCompatActivity {
     protected Toolbar toolbar;
     private ActionBar actionBar;
     protected BookData bookData;
@@ -39,7 +39,6 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
     protected ListView list;
     protected myAdapter adapter;
     protected String sorting;
-    protected SwipeRefreshLayout swipeLayout;
     protected ArrayList<Book> values = new ArrayList<>();
     private String lastQuery = "";
     private FuzzyScore fuzzyCalculator;
@@ -71,32 +70,10 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
         list.setAdapter(adapter);
         TextView emptyText = (TextView)findViewById(android.R.id.empty);
         list.setEmptyView(emptyText);
-        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        swipeLayout.setOnRefreshListener(this);
-        swipeLayout.setColorScheme(R.color.colorAccent);
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        list.setOnScrollListener(new ListView.OnScrollListener() {
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                boolean enable = false;
-                if(list != null && list.getChildCount() > 0) {
-                    // check if the first item of the list is visible
-                    boolean firstItemVisible = list.getFirstVisiblePosition() == 0;
-                    // check if the top of the first item is visible
-                    boolean topOfFirstItemVisible = list.getChildAt(0).getTop() == 0;
-                    enable = firstItemVisible && topOfFirstItemVisible;
-                }
-                swipeLayout.setEnabled(enable);
-
-            }
-
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-            }
-        });
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -124,12 +101,6 @@ public class SearchResultsActivity extends AppCompatActivity implements SwipeRef
         return true;
     }
 
-    @Override
-    public void onRefresh() {
-        swipeLayout.setRefreshing(true);
-        fillList();
-        swipeLayout.setRefreshing(false);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
