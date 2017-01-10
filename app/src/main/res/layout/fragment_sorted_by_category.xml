@@ -11,6 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/empty_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="No results found"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/secondary_text_default_material_dark"
+        android:textSize="24sp"
+        android:typeface="normal" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/plusButton"
         android:layout_width="wrap_content"

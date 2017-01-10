@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,7 @@ public class SortedByCategoryFragment extends Fragment {
 
         myLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         myRecyclerView.setLayoutManager(myLayoutManager);
+        TextView emptyView = (TextView) v.findViewById(R.id.empty_recycler);
 
         bookData = new BookData(getActivity().getApplicationContext());
         bookData.open();
@@ -51,6 +53,15 @@ public class SortedByCategoryFragment extends Fragment {
                 startActivity(in);
             }
         });
+
+        if (myAdapter.getItemCount() <= 0) {
+            myRecyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            myRecyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
 
         // falta comprovar que el hide i el show funcionen adequadament
         myRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
