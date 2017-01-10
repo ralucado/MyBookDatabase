@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class AddNewBookActivity extends AppCompatActivity {
     private EditText editCategory;
     private EditText editEditorial;
     private EditText editYear;
+    private RatingBar ratingBar;
     private BookData bookData;
 
     @Override
@@ -31,6 +33,7 @@ public class AddNewBookActivity extends AppCompatActivity {
         editCategory = (EditText) findViewById(R.id.editCategory);
         editEditorial = (EditText) findViewById(R.id.editEditorial);
         editYear = (EditText) findViewById(R.id.editYear);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
         bookData = new BookData(this);
         final Activity THIS = this;
@@ -42,7 +45,7 @@ public class AddNewBookActivity extends AppCompatActivity {
                     bookData.open();
                     bookData.createBook(editName.getText().toString(), editAuthor.getText().toString(),
                             editCategory.getText().toString(), editEditorial.getText().toString(),
-                            Integer.valueOf(editYear.getText().toString()));
+                            Integer.valueOf(editYear.getText().toString()), String.valueOf(ratingBar.getRating()));
                     bookData.close();
                 }
                 NavUtils.navigateUpFromSameTask(THIS);

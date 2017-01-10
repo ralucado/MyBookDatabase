@@ -1,6 +1,9 @@
 package com.example.pr_idi.mydatabaseexample;
 
-import android.speech.tts.TextToSpeech;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.internal.view.ContextThemeWrapper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,22 +13,27 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>{
 
-    private ArrayList<Book> myBooks;
+    ArrayList<Book> myBooks;
+    Context myContext;
+    BookData bookData;
 
-    public RecyclerViewAdapter(ArrayList<Book> list) {
-        myBooks = list;
+    public RecyclerViewAdapter(Context context, ArrayList<Book> books, final BookData bookdata) {
+        myBooks = books;
+        bookData = bookdata;
+        myContext = context;
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.advanced_row, parent, false);
 
         MyViewHolder vh = new MyViewHolder(v);
+
         return vh;
     }
 
@@ -39,6 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.year.setText(String.valueOf(tmp.getYear()));
         holder.ratingBar.setRating(tmp.getPersonal_evaluation());
         holder.category.setText(tmp.getCategory());
+
     }
 
     @Override
@@ -46,7 +55,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return myBooks.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView title;
         public TextView author;

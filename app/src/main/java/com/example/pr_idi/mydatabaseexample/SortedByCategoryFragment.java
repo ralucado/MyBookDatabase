@@ -40,7 +40,7 @@ public class SortedByCategoryFragment extends Fragment {
         ArrayList<Book> myTempArrayList = (ArrayList<Book>) bookData.getAllBooks("Categories");
         bookData.close();
         // specify an adapter (see also next example)
-        myAdapter = new RecyclerViewAdapter(myTempArrayList);
+        myAdapter = new RecyclerViewAdapter(getActivity().getApplicationContext(),myTempArrayList,bookData);
         myRecyclerView.setAdapter(myAdapter);
 
         myFloatingActionButton = (FloatingActionButton) v.findViewById(R.id.plusButton);
