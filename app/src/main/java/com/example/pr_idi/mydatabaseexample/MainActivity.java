@@ -9,7 +9,9 @@ import java.util.Random;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     private DrawerLayout mDrawerLayout;
     private Fragment fragment = null;
     private String sorting;
+    private BookData bookData;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,22 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         setupNavigationDrawerContent(navigationView);
 
         displayFragment(mainFragment.class);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
+        if(!previouslyStarted) {
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
+            edit.commit();
+            bookData = new BookData(this);
+            bookData.open();
+            bookData.createBook("Metamorphosis","Kafka","Slipstream","Franz Kafka","1915","4");
+            bookData.createBook("The Pillars Of The Earth","Ken Follet","Fiction","Macmillan Publishers","1989","3");
+            bookData.createBook("The Name Of The Wind","Patrick Rothfuss", "Fantasy", "The Kingkiller Cronicles", "2007", "5");
+            bookData.createBook("Breaking Dawn","Stephenie Meyer","Paranormal Romance","Little, Brown and Co.", "2007", "2");
+            bookData.close();
+            startActivity(new Intent(this, HelpActivity.class));
+        }
 
 
 
