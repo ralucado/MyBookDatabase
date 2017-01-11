@@ -40,7 +40,7 @@
         android:numStars="5"
         android:rating="2.5"
         android:stepSize="1"
-        android:isIndicator="false"
+        android:isIndicator="true"
         android:progressTint="@color/colorAccent" />
 
     <ImageView

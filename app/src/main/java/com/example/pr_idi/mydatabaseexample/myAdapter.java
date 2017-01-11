@@ -36,10 +36,6 @@ public class myAdapter extends ArrayAdapter<Book> {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void setObjects(List<Book> objects) {
-        myObjects = objects;
-    }
-
     @Override
     public int getCount() {
         return myObjects.size();
@@ -55,6 +51,7 @@ public class myAdapter extends ArrayAdapter<Book> {
         return myObjects.get(position).getId();
     }
 
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View vi = convertView;
@@ -68,46 +65,6 @@ public class myAdapter extends ArrayAdapter<Book> {
         TextView category = (TextView) vi.findViewById(R.id.categoryView);
         category.setText(b.getCategory());
         final RatingBar bar = (RatingBar) vi.findViewById(R.id.ratingBar);
-
-        bar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            public void onRatingChanged(RatingBar r, final float value, boolean fromUser) {
-                // set title
-                if (fromUser) {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                            new ContextThemeWrapper(myContext, R.style.AlertDialog_AppCompat));
-                    alertDialogBuilder.setTitle("Changed Rating");
-
-                    alertDialogBuilder
-                            .setMessage("Do you want to change the book rating?")
-                            .setCancelable(false)
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    bookData.open();
-                                    bookData.changeRating(myObjects.get(position), value);
-                                    bookData.close();
-                                    myObjects.get(position).setPersonal_evaluation(value);
-                                    notifyDataSetChanged();
-                                }
-
-
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-
-                                    bar.setRating(book.getPersonal_evaluation());
-                                    dialog.cancel();
-                                }
-                            });
-
-                    // create alert dialog
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-
-                    // show it
-                    alertDialog.show();
-                }
-
-            }
-        });
         bar.setRating(b.getPersonal_evaluation());
         ImageView imgView = (ImageView) vi.findViewById(R.id.imageview);
         try {
@@ -139,11 +96,35 @@ public class myAdapter extends ArrayAdapter<Book> {
 
                                             break;
                                         case R.id.delete:
-                                            bookData.open();
-                                            if (bookData.deleteBook(book)) remove(book);
-                                            else
-                                                Toast.makeText(myContext, "Book does not exist, please swipe up to refresh.", Toast.LENGTH_LONG).show();
-                                            bookData.close();
+                                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                                                    new ContextThemeWrapper(myContext, R.style.AlertDialog_AppCompat));
+                                            alertDialogBuilder.setTitle("Delete Book");
+
+                                            alertDialogBuilder
+                                                    .setMessage("Do you want to delete \""+book.toString()+"\"?")
+                                                    .setCancelable(false)
+                                                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            bookData.open();
+                                                            if (bookData.deleteBook(book)) remove(book);
+                                                            else
+                                                                Toast.makeText(myContext, "There was a problem adding the book. Please restart app and try again.", Toast.LENGTH_LONG).show();
+                                                            bookData.close();
+                                                        }
+
+
+                                                    })
+                                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            dialog.cancel();
+                                                        }
+                                                    });
+
+                                            // create alert dialog
+                                            AlertDialog alertDialog = alertDialogBuilder.create();
+
+                                            // show it
+                                            alertDialog.show();
                                             break;
 
                                         default:

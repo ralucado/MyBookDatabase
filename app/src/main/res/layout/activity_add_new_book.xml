@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="25dp"
         android:layout_marginTop="12dp"
-        android:text="Nom:"
+        android:text="Title"
         android:textSize="12sp" />
 
     <EditText
@@ -28,7 +28,7 @@
         android:layout_alignStart="@+id/textName"
         android:layout_below="@+id/textName"
         android:layout_marginTop="4dp"
-        android:ems="16"
+        android:ems="20"
         android:inputType="textPersonName"
         android:textSize="13sp" />
 
@@ -39,7 +39,7 @@
         android:layout_alignStart="@+id/editName"
         android:layout_below="@+id/editName"
         android:layout_marginTop="4dp"
-        android:text="Autor:"
+        android:text="Author"
         android:textSize="12sp" />
 
 
@@ -50,7 +50,7 @@
         android:layout_alignStart="@+id/textAuthor"
         android:layout_below="@+id/textAuthor"
         android:layout_marginTop="4dp"
-        android:ems="16"
+        android:ems="20"
         android:inputType="textPersonName"
         android:textSize="13sp" />
 
@@ -61,7 +61,7 @@
         android:layout_alignStart="@+id/editAuthor"
         android:layout_below="@+id/editAuthor"
         android:layout_marginTop="4dp"
-        android:text="Categoria:"
+        android:text="Category"
         android:textSize="12sp" />
 
     <EditText
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textCategory"
         android:layout_below="@+id/textCategory"
-        android:ems="16"
+        android:ems="20"
         android:inputType="textPersonName"
         android:text="Unknown"
         android:textSize="13sp"
@@ -83,7 +83,7 @@
         android:layout_alignStart="@+id/editCategory"
         android:layout_below="@+id/editCategory"
         android:layout_marginTop="4dp"
-        android:text="Editorial:"
+        android:text="Publisher"
         android:textSize="12sp"/>
 
     <EditText
@@ -92,7 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textEditorial"
         android:layout_below="@+id/textEditorial"
-        android:ems="16"
+        android:ems="20"
         android:inputType="textPersonName"
         android:text="Unknown"
         android:textSize="13sp"  />
@@ -104,7 +104,7 @@
         android:layout_alignStart="@+id/editEditorial"
         android:layout_below="@+id/editEditorial"
         android:layout_marginTop="4dp"
-        android:text="Any de publicació:"
+        android:text="Year"
         android:textSize="12sp"/>
 
     <EditText
@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textYear"
         android:layout_below="@+id/textYear"
-        android:ems="16"
+        android:ems="20"
         android:layout_marginTop="4dp"
 
         android:inputType="number"
@@ -127,7 +127,7 @@
         android:layout_alignStart="@+id/editYear"
         android:layout_below="@+id/editYear"
         android:layout_marginTop="4dp"
-        android:text="Puntuació:" />
+        android:text="Rating" />
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -149,6 +149,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:text="ACCEPT" />
+        android:text="SAVE" />
 
 </RelativeLayout>
