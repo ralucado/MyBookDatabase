@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
->
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,8 +21,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/status_bar_height"
-        >
+        android:layout_marginTop="@dimen/status_bar_height">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/app_bar"
@@ -35,25 +33,25 @@
             app:theme="@style/myToolbarTheme" />
 
         <TextView
+            android:id="@+id/abouttextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="About this app"
-            android:layout_marginTop="72dp"
             android:layout_marginLeft="16dp"
-            android:textSize="16sp"
-            android:id="@+id/abouttextView" />
+            android:layout_marginTop="72dp"
+            android:text="About this app"
+            android:textSize="16sp" />
 
         <TextView
-            android:text="This is an app created by Martí Homs and Cristina Raluca Vijulie. The puropse of this app is to proportionate a user-friendly and intuitive interface for a book storing database. This app was created for the Interface Design and Interaction (IDI) course at UPC-FIB."
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="96dp"
+            android:layout_below="@+id/abouttextView"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:id="@+id/textView2"
-            android:textSize="13sp"
+            android:layout_marginTop="96dp"
+            android:text="This is an app created by Martí Homs Soler and Cristina Raluca Vijulie. The purpose of this app is to proportionate a user-friendly and intuitive interface for a book storing database. This app was created for the Interface Design and Interaction (IDI) course at UPC-FIB."
 
-            android:layout_below="@+id/abouttextView"/>
+            android:textSize="13sp" />
 
     </FrameLayout>
 

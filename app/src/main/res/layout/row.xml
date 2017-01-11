@@ -5,10 +5,21 @@
     android:orientation="horizontal"
     android:padding="16dp">
 
+    <ImageView
+        android:layout_width="4dp"
+        android:layout_height="68dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/leftbar"
+        android:layout_alignBottom="@+id/ratingBar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
     <TextView
         android:id="@+id/titleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/leftbar"
+        android:layout_marginLeft="8dp"
         android:fontFamily="sans-serif"
         android:text="A very very long book title"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -21,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/titleView"
+        android:layout_alignLeft="@+id/titleView"
         android:layout_marginTop="4dp"
         android:fontFamily="sans-serif"
         android:text="A Long Author Name"
@@ -36,6 +48,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/authorView"
+        android:layout_alignLeft="@+id/titleView"
+
         android:layout_marginTop="4dp"
         android:numStars="5"
         android:rating="2.5"
@@ -57,14 +71,14 @@
         android:id="@+id/categoryView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@id/imageview"
-        android:layout_alignTop="@id/titleView"
-        android:layout_marginRight="40dp"
         android:fontFamily="sans-serif"
         android:text="A book category"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textColor="@color/abc_secondary_text_material_dark"
         android:textSize="13sp"
-        android:typeface="normal" />
+        android:typeface="normal"
+        android:layout_marginEnd="12dp"
+        android:layout_alignTop="@+id/ratingBar"
+        android:layout_toStartOf="@+id/imageview" />
 
 </RelativeLayout>

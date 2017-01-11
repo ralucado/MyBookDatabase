@@ -42,6 +42,11 @@ public class myAdapter extends ArrayAdapter<Book> {
     }
 
     @Override
+    public boolean isEnabled(int position) {
+        return false;
+    }
+
+    @Override
     public Book getItem(int position) {
         return myObjects.get(position);
     }
@@ -101,12 +106,13 @@ public class myAdapter extends ArrayAdapter<Book> {
                                             alertDialogBuilder.setTitle("Delete Book");
 
                                             alertDialogBuilder
-                                                    .setMessage("Do you want to delete \""+book.toString()+"\"?")
+                                                    .setMessage("Do you want to delete \"" + book.toString() + "\"?")
                                                     .setCancelable(false)
                                                     .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                                         public void onClick(DialogInterface dialog, int id) {
                                                             bookData.open();
-                                                            if (bookData.deleteBook(book)) remove(book);
+                                                            if (bookData.deleteBook(book))
+                                                                remove(book);
                                                             else
                                                                 Toast.makeText(myContext, "There was a problem adding the book. Please restart app and try again.", Toast.LENGTH_LONG).show();
                                                             bookData.close();

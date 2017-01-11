@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 /**
@@ -19,7 +21,7 @@ public class HelpActivity extends FragmentActivity implements Button.OnClickList
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = 5;
+    private static final int NUM_PAGES = 6;
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -43,6 +45,10 @@ public class HelpActivity extends FragmentActivity implements Button.OnClickList
         mPager.setAdapter(mPagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabDots);
         tabLayout.setupWithViewPager(mPager);
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.darkStatusBar));
+
     }
 
 
@@ -74,7 +80,12 @@ public class HelpActivity extends FragmentActivity implements Button.OnClickList
 
         @Override
         public Fragment getItem(int position) {
-            return new HelpFragment();
+
+            HelpFragment fragment = new HelpFragment();
+            Bundle args = new Bundle();
+            args.putInt("position", position);
+            fragment.setArguments(args);
+            return fragment;
         }
 
         @Override

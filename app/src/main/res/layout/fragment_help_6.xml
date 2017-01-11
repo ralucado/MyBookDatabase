@@ -7,6 +7,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/header"/>
+        android:background="@color/colorPrimaryVeryDark"
+        android:src="@drawable/help5"/>
 
 </FrameLayout>
