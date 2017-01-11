@@ -26,21 +26,7 @@ ViewPager mImageViewPager;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_help, container, false);
-        mImageViewPager = (ViewPager) v.findViewById(R.id.pager);
-        FragmentPagerAdapter myAdapter = new FragmentPagerAdapter(getFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                return null;
-            }
-
-            @Override
-            public int getCount() {
-                return 0;
-            }
-        };
-        TabLayout tabLayout = (TabLayout) v.findViewById(R.id.tabDots);
-        tabLayout.setupWithViewPager(mImageViewPager);
+        ViewGroup v = (ViewGroup) inflater.inflate(R.layout.fragment_help, container, false);
         return v;
     }
 

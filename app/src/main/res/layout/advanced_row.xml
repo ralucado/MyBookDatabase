@@ -4,26 +4,28 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingLeft="16dp"
-    android:paddingTop="12dp"
+    android:paddingTop="20dp"
     android:paddingBottom="12dp"
     android:paddingRight="16dp"
     >
 
-
+    <ImageView
+        android:layout_width="4dp"
+        android:layout_height="88dp"
+    android:background="@color/colorPrimary"
+        android:id="@+id/sidebar"/>
 
     <TextView
         android:id="@+id/titleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titleView"
-
+        android:layout_toRightOf="@id/sidebar"
+        android:layout_marginLeft="8dp"
         android:fontFamily="sans-serif"
         android:text="A very very long book title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/primary_text_default_material_dark"
         android:textSize="16sp"
         android:textStyle="normal|bold" />
-
     <TextView
         android:id="@+id/authorView"
         android:layout_width="wrap_content"
