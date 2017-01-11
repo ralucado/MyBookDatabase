@@ -23,6 +23,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,19 +43,24 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     protected Toolbar toolbar;
     private ActionBar actionBar;
     private DrawerLayout mDrawerLayout;
-
+    private Fragment fragment = null;
+    private String sorting;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d("Creating", "Creating main activity");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //set the toolbar
+        sorting = "Titles";
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         //change icon?
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(sorting);
 
         //setting the drawer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
@@ -88,6 +94,13 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
 
     @Override
+    protected void onResume() {
+        if(fragment != null) fragment.onResume();
+        actionBar.setTitle(sorting);
+        super.onResume();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
@@ -113,19 +126,23 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
 
 
+
+
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         Class fragmentClass;
         switch (menuItem.getItemId()) {
             case R.id.item_navigation_drawer_titles:
                 fragmentClass = mainFragment.class;
+                sorting = "Titles";
                 break;
             case R.id.item_navigation_drawer_authors:
                 fragmentClass = mainFragment.class;
+                sorting = "Authors";
                 break;
             case R.id.item_navigation_drawer_categories:
                 fragmentClass = SortedByCategoryFragment.class;
-
+                sorting = "Categories";
                 break;
             case R.id.item_navigation_drawer_about:
                 fragmentClass = AboutFragment.class;
@@ -138,16 +155,19 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         }
         displayFragment(fragmentClass);
 
-        Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
         menuItem.setChecked(true);
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
     private void displayFragment(Class fragmentClass) {
-        Fragment fragment = null;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
+            Bundle args = new Bundle();
+            args.putString("Sorting",sorting);
+            fragment.setArguments(args);
+            actionBar.setTitle(sorting);
         }catch(Exception e){
             e.printStackTrace();
         }

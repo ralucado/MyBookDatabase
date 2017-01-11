@@ -24,7 +24,6 @@ import java.util.List;
 
 public class myAdapter extends ArrayAdapter<Book> {
     private static LayoutInflater inflater = null;
-    final myAdapter THIS = this;
     List<Book> myObjects;
     Context myContext;
     BookData bookData;
@@ -72,10 +71,10 @@ public class myAdapter extends ArrayAdapter<Book> {
 
         bar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar r, final float value, boolean fromUser) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        new ContextThemeWrapper(myContext, R.style.AlertDialog_AppCompat));
                 // set title
                 if (fromUser) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            new ContextThemeWrapper(myContext, R.style.AlertDialog_AppCompat));
                     alertDialogBuilder.setTitle("Changed Rating");
 
                     alertDialogBuilder

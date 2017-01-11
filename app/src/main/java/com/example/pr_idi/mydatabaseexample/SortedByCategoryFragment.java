@@ -21,9 +21,20 @@ public class SortedByCategoryFragment extends Fragment {
     private RecyclerView.LayoutManager myLayoutManager;
     private FloatingActionButton myFloatingActionButton;
     private BookData bookData;
+    ArrayList<Book> myTempArrayList = new ArrayList<Book>();
 
     public SortedByCategoryFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onResume() {
+        bookData.open();
+        myTempArrayList.clear();
+        myTempArrayList.addAll(bookData.getAllBooks("Categories"));
+        myAdapter.notifyDataSetChanged();
+        bookData.close();
+        super.onResume();
     }
 
     @Override
@@ -39,7 +50,7 @@ public class SortedByCategoryFragment extends Fragment {
 
         bookData = new BookData(getActivity().getApplicationContext());
         bookData.open();
-        ArrayList<Book> myTempArrayList = (ArrayList<Book>) bookData.getAllBooks("Categories");
+        myTempArrayList = (ArrayList<Book>) bookData.getAllBooks("Categories");
         bookData.close();
         // specify an adapter (see also next example)
         myAdapter = new RecyclerViewAdapter(getActivity().getApplicationContext(), myTempArrayList, bookData);

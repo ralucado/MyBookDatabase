@@ -5,137 +5,150 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
     tools:context="com.example.pr_idi.mydatabaseexample.AddNewBookActivity">
 
     <TextView
-        android:text="Nom:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="15dp"
         android:id="@+id/textName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="Autor:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editName"
-        android:layout_alignStart="@+id/editName"
-        android:layout_marginTop="10dp"
-        android:id="@+id/textAuthor" />
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="12dp"
+        android:text="Nom:"
+        android:textSize="12sp" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_marginTop="10dp"
         android:id="@+id/editName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textName"
         android:layout_below="@+id/textName"
-        android:layout_alignStart="@+id/textName" />
+        android:layout_marginTop="4dp"
+        android:ems="16"
+        android:inputType="textPersonName"
+        android:textSize="13sp" />
 
-    <EditText
+    <TextView
+        android:id="@+id/textAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="J. K. Rowling"
-        android:ems="14"
-        android:layout_marginTop="10dp"
+        android:layout_alignStart="@+id/editName"
+        android:layout_below="@+id/editName"
+        android:layout_marginTop="4dp"
+        android:text="Autor:"
+        android:textSize="12sp" />
+
+
+    <EditText
         android:id="@+id/editAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textAuthor"
         android:layout_below="@+id/textAuthor"
-        android:layout_alignStart="@+id/textAuthor" />
+        android:layout_marginTop="4dp"
+        android:ems="16"
+        android:inputType="textPersonName"
+        android:textSize="13sp" />
 
     <TextView
-        android:text="Categoria:"
+        android:id="@+id/textCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editAuthor"
         android:layout_alignStart="@+id/editAuthor"
-        android:layout_marginTop="10dp"
-        android:id="@+id/textCategory" />
+        android:layout_below="@+id/editAuthor"
+        android:layout_marginTop="4dp"
+        android:text="Categoria:"
+        android:textSize="12sp" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Sci-Fi"
-        android:ems="14"
         android:id="@+id/editCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textCategory"
         android:layout_below="@+id/textCategory"
-        android:layout_alignStart="@+id/textCategory" />
-
-    <TextView
-        android:text="Editorial:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editCategory"
-        android:layout_alignStart="@+id/editCategory"
-        android:layout_marginTop="10dp"
-        android:id="@+id/textEditorial" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:ems="16"
         android:inputType="textPersonName"
-        android:text="Norma Comics"
-        android:ems="14"
-        android:id="@+id/editEditorial"
-        android:layout_below="@+id/textEditorial"
-        android:layout_alignStart="@+id/textEditorial" />
+        android:text="Unknown"
+        android:textSize="13sp"
+        />
 
     <TextView
-        android:text="Any de publicació:"
+        android:id="@+id/textEditorial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editEditorial"
-        android:layout_alignStart="@+id/editEditorial"
-        android:layout_marginTop="10dp"
-        android:id="@+id/textYear" />
+        android:layout_alignStart="@+id/editCategory"
+        android:layout_below="@+id/editCategory"
+        android:layout_marginTop="4dp"
+        android:text="Editorial:"
+        android:textSize="12sp"/>
 
     <EditText
+        android:id="@+id/editEditorial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:text="1714"
-        android:ems="14"
-        android:id="@+id/editYear"
-        android:layout_below="@+id/textYear"
-        android:layout_alignStart="@+id/textYear" />
+        android:layout_alignStart="@+id/textEditorial"
+        android:layout_below="@+id/textEditorial"
+        android:ems="16"
+        android:inputType="textPersonName"
+        android:text="Unknown"
+        android:textSize="13sp"  />
 
     <TextView
-        android:text="Puntuació:"
+        android:id="@+id/textYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editYear"
+        android:layout_alignStart="@+id/editEditorial"
+        android:layout_below="@+id/editEditorial"
+        android:layout_marginTop="4dp"
+        android:text="Any de publicació:"
+        android:textSize="12sp"/>
+
+    <EditText
+        android:id="@+id/editYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textYear"
+        android:layout_below="@+id/textYear"
+        android:ems="16"
+        android:layout_marginTop="4dp"
+
+        android:inputType="number"
+        android:text="Unknown"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:id="@+id/textPuntuacio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignStart="@+id/editYear"
-        android:layout_marginTop="10dp"
-        android:id="@+id/textPuntuacio" />
+        android:layout_below="@+id/editYear"
+        android:layout_marginTop="4dp"
+        android:text="Puntuació:" />
 
     <RatingBar
         android:id="@+id/ratingBar"
-        style="@android:style/Widget.Material.RatingBar"
+        style="@android:style/Widget.Material.RatingBar.Indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textPuntuacio"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:numStars="5"
-        android:rating="2.5"
-        android:stepSize="1"
+        android:layout_marginTop="4dp"
         android:isIndicator="false"
-        android:progressTint="@color/colorAccent" />
+        android:layout_alignLeft="@+id/textPuntuacio"
+        android:numStars="5"
+        android:progressTint="@color/colorAccent"
+        android:rating="0"
+        android:stepSize="1" />
 
     <Button
-        android:text="ACCEPT"
+        android:id="@+id/accept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/accept"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:text="ACCEPT" />
 
 </RelativeLayout>

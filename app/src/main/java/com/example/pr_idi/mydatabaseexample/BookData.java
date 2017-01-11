@@ -6,6 +6,8 @@ package com.example.pr_idi.mydatabaseexample;
  */
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -40,7 +42,7 @@ public class BookData {
         dbHelper.close();
     }
 
-    public Book createBook(String title, String author, String category, String publisher, int year, String rating) {
+    public Book createBook(String title, String author, String category, String publisher, String year, String rating) {
         ContentValues values = new ContentValues();
         Log.d("Creating", "Creating " + title + " " + author);
 
@@ -50,7 +52,7 @@ public class BookData {
         values.put(MySQLiteHelper.COLUMN_AUTHOR, author);
         values.put(MySQLiteHelper.COLUMN_CATEGORY, category);
         values.put(MySQLiteHelper.COLUMN_PUBLISHER, publisher);
-        values.put(MySQLiteHelper.COLUMN_YEAR, year);
+        values.put(MySQLiteHelper.COLUMN_YEAR, String.valueOf(year));
         values.put(MySQLiteHelper.COLUMN_PERSONAL_EVALUATION, rating);
 
         // Actual insertion of the data using the values variable
@@ -77,44 +79,23 @@ public class BookData {
         return newBook;
     }
 
-    public Book createBook(Book b) {
+
+    public void editBook(long id, String title, String author, String category, String publisher, String year, String rating){
+
         ContentValues values = new ContentValues();
-        String title = b.getTitle();
-        String author = b.getAuthor();
-        Log.d("Creating", "Creating " + title + " " + author);
 
         // Add data: Note that this method only provides title and author
         // Must modify the method to add the full data
         values.put(MySQLiteHelper.COLUMN_TITLE, title);
         values.put(MySQLiteHelper.COLUMN_AUTHOR, author);
-        values.put(MySQLiteHelper.COLUMN_PUBLISHER, b.getPublisher());
-        values.put(MySQLiteHelper.COLUMN_YEAR, b.getYear());
-        values.put(MySQLiteHelper.COLUMN_CATEGORY, b.getCategory());
-        values.put(MySQLiteHelper.COLUMN_PERSONAL_EVALUATION, Float.toString(b.getPersonal_evaluation()));
-
-        // Actual insertion of the data using the values variable
-        long insertId = database.insert(MySQLiteHelper.TABLE_BOOKS, null,
-                values);
-        // Main activity calls this procedure to create a new book
-        // and uses the result to update the listview.
-        // Therefore, we need to get the data from the database
-        // (you can use this as a query example)
-        // to feed the view.
-
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
-                allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
-                null, null, null);
-        cursor.moveToFirst();
-        Book newBook = cursorToBook(cursor);
-
-        // Do not forget to close the cursor
-        cursor.close();
-        // Return the book
-        return b;
-    }
-
-    public void editBook(Book book, String title, String author, String category, String publisher, int year, String rating){
-
+        values.put(MySQLiteHelper.COLUMN_PUBLISHER, publisher);
+        values.put(MySQLiteHelper.COLUMN_YEAR, String.valueOf(year));
+        values.put(MySQLiteHelper.COLUMN_CATEGORY, category);
+        values.put(MySQLiteHelper.COLUMN_PERSONAL_EVALUATION, String.valueOf(rating));
+        if(database.update(MySQLiteHelper.TABLE_BOOKS,values,MySQLiteHelper.COLUMN_ID
+                + " = " + id,null) > 0) {
+            System.out.println("Book updated with id: " + id);
+        }
 
     }
 
@@ -138,7 +119,7 @@ public class BookData {
         values.put(MySQLiteHelper.COLUMN_TITLE, book.getTitle());
         values.put(MySQLiteHelper.COLUMN_AUTHOR, book.getAuthor());
         values.put(MySQLiteHelper.COLUMN_PUBLISHER, book.getPublisher());
-        values.put(MySQLiteHelper.COLUMN_YEAR, book.getYear());
+        values.put(MySQLiteHelper.COLUMN_YEAR, String.valueOf(book.getYear()));
         values.put(MySQLiteHelper.COLUMN_CATEGORY, book.getCategory());
         values.put(MySQLiteHelper.COLUMN_PERSONAL_EVALUATION, String.valueOf(val));
         if(database.update(MySQLiteHelper.TABLE_BOOKS,values,MySQLiteHelper.COLUMN_ID
@@ -166,11 +147,8 @@ public class BookData {
 
     public List<Book> getAllBooks(String sortBy) {
         List<Book> books = new ArrayList<>();
-        if (sortBy.equals("Authors")) sortBy = MySQLiteHelper.COLUMN_AUTHOR;
-        else if (sortBy.equals("Categories")) sortBy = MySQLiteHelper.COLUMN_CATEGORY;
-        else sortBy = MySQLiteHelper.COLUMN_TITLE;
         Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
-                allColumns, null, null, null, null, sortBy);
+                allColumns, null, null, null, null, MySQLiteHelper.COLUMN_TITLE);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -180,6 +158,30 @@ public class BookData {
         }
         // make sure to close the cursor
         cursor.close();
+        if (sortBy.equals("Authors")){
+            Collections.sort(books, new Comparator<Book>() {
+                @Override
+                public int compare(Book b1, Book b2) {
+                    return b1.getAuthor().toLowerCase().compareTo(b2.getAuthor().toLowerCase());
+                }
+            });
+        }
+        else if (sortBy.equals("Categories")){
+            Collections.sort(books, new Comparator<Book>() {
+                @Override
+                public int compare(Book b1, Book b2) {
+                    return b1.getCategory().toLowerCase().compareTo(b2.getCategory().toLowerCase());
+                }
+            });
+        }
+        else{
+            Collections.sort(books, new Comparator<Book>() {
+                @Override
+                public int compare(Book b1, Book b2) {
+                    return b1.getTitle().toLowerCase().compareTo(b2.getTitle().toLowerCase());
+                }
+            });
+        }
         return books;
     }
 
