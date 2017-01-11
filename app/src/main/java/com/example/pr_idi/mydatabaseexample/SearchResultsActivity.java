@@ -110,11 +110,18 @@ public class SearchResultsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id==android.R.id.home){
-            NavUtils.navigateUpFromSameTask(this);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent upIntent = new Intent(this, MainActivity.class);
+                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+                    NavUtils.navigateUpTo(this, upIntent);
+                    finish();
+                } else {
+                    finish();
+                }
+                return true;
+            default: return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
 }

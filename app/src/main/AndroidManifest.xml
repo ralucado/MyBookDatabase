@@ -21,7 +21,8 @@
         </activity>
         <activity
             android:name=".SearchResultsActivity"
-            android:label="Search Results">
+            android:label="Search Results"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -44,6 +45,14 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".HelpActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:launchMode="singleTop">
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
