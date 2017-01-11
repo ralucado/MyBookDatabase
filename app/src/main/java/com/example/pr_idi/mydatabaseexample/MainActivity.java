@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 break;
             case R.id.item_navigation_drawer_about:
                 fragmentClass = AboutFragment.class;
+                sorting = "About";
                 break;
             case R.id.item_navigation_drawer_help:
                 fragmentClass = HelpFragment.class;

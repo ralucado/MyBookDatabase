@@ -45,6 +45,7 @@ public class mainFragment extends Fragment {
     public void onResume() {
         Bundle args = getArguments();
         sorting = args.get("Sorting").toString();
+        fab.setElevation(12);
         Log.d("onResume","resuming fragment, sorting is "+sorting);
         fillList();
         super.onResume();
@@ -98,6 +99,7 @@ public class mainFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fab.setElevation(24);
                 startActivity(in);
             }
         });

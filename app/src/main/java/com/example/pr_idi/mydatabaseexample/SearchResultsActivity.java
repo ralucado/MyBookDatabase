@@ -44,10 +44,10 @@ public class SearchResultsActivity extends AppCompatActivity {
     private FuzzyScore fuzzyCalculator;
     private void fillList(){
         values.clear();
-        List<Book> aux = bookData.getAllBooks("Titles");
+        List<Book> aux = bookData.getAllBooks("Author");
         for (Book book : aux) {
-            String author = book.getAuthor();
-            if(fuzzyCalculator.fuzzyScore(author,lastQuery) > author.length()/2) values.add(book);
+            String title = book.getTitle();
+            if(fuzzyCalculator.fuzzyScore(title,lastQuery) > title.length()/2) values.add(book);
         }
 
         adapter.notifyDataSetChanged();
@@ -94,6 +94,12 @@ public class SearchResultsActivity extends AppCompatActivity {
             //use the query to search your data somehow
             fillList();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        fillList();
+        super.onResume();
     }
 
     @Override
